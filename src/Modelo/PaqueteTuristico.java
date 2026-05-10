@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author CELY
  */
 public abstract class PaqueteTuristico {
     protected String codigo;

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author CELY
  */
 public final class PaqueteTuristicoUnico extends PaqueteTuristico {
     private String nombreHotel;
