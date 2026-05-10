@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import Modelo.Venta;
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
@@ -16,6 +19,22 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     public UsaGUIVenta() {
         initComponents();
     }
+    
+    public String consultarVentasDadoEstado(ArrayList<Venta> datos, char estadoVenta){
+        String resultado = "Ventas segun su Estado: "+estadoVenta+"\n";
+        int i=0;
+        for(Venta objVenta : datos){
+            if(objVenta.getEstado()== estadoVenta){
+                resultado+=objVenta.toString();
+                i++;
+            }
+        }
+        if(i==0){
+            resultado+="No se encontraron Datos";
+        }
+        return resultado;
+    }
+    
     
     
     @SuppressWarnings("unchecked")
