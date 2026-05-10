@@ -19,46 +19,77 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     public UsaGUIVenta() {
         initComponents();
     }
-    
-    public String consultarVentasDadoEstado(ArrayList<Venta> datos, char estadoVenta){
-        String resultado = "Ventas segun su Estado: "+estadoVenta+"\n";
-        if(datos==null){
-             resultado+="No hay datos en el sistema";
-        }else{
-            int i=0;
-            for(Venta objVenta : datos){
-                if(objVenta.getEstado()== estadoVenta){
-                    resultado+=objVenta.toString();
+
+    public String consultarTodasVentas(ArrayList<Venta> datos) {
+        String resultado = "Todas las Ventas\n";
+        if (datos == null) {
+            resultado += "No hay datos en el sistema";
+        } else {
+            for (Venta objVenta : datos) {
+                resultado += objVenta.toString();
+            }
+
+        }
+        return resultado;
+    }
+
+    public String consultarVentaDadoNumero(ArrayList<Venta> datos, int numeroVenta) {
+        String resultado = "Ventas segun su Estado\n";
+        if (datos == null) {
+            resultado += "No hay datos en el sistema";
+        } else {
+            int i = 0;
+            for (Venta objVenta : datos) {
+                if (objVenta.getNumero() == numeroVenta) {
+                    resultado += objVenta.toString();
                     i++;
                 }
             }
-            if(i==0){
-                resultado+="No se encontraron Datos";
+            if (i == 0) {
+                resultado += "No se encontraron Datos";
             }
         }
         return resultado;
     }
-    
-    public String consultarVentaDadaPosicion(ArrayList<Venta> datos, char posicionVenta){
-        String resultado = "Ventas segun su Estado: "+posicionVenta+"\n";
-        if(datos==null){
-             resultado+="No hay datos en el sistema";
-        }else{
-            int i=0;
-            for(Venta objVenta : datos){
-                if(objVenta.getEstado()== posicionVenta){
-                    resultado+=objVenta.toString();
-                    i++;
+
+    public String consultarVentaDadaPosicion(ArrayList<Venta> datos, char posicionVenta) {
+        String resultado = "Ventas segun su Posicion\n";
+        if (datos == null) {
+            resultado += "No hay datos en el sistema";
+        } else {
+            if (posicionVenta == 'p' || posicionVenta == 'P') {
+                resultado += datos.get(0).toString();
+            } else {
+                if (posicionVenta == 'u' || posicionVenta == 'U') {
+                    resultado += datos.get(datos.size()-1).toString();
                 }
-            }
-            if(i==0){
-                resultado+="No se encontraron Datos";
+                else{
+                    
+                }
             }
         }
         return resultado;
     }
-    
-    
+
+    public String consultarVentasDadoEstado(ArrayList<Venta> datos, char estadoVenta) {
+        String resultado = "Ventas segun su Estado: " + estadoVenta + "\n";
+        if (datos == null) {
+            resultado += "No hay datos en el sistema";
+        } else {
+            int i = 0;
+            for (Venta objVenta : datos) {
+                if (objVenta.getEstado() == estadoVenta) {
+                    resultado += objVenta.toString();
+                    i++;
+                }
+            }
+            if (i == 0) {
+                resultado += "No se encontraron Datos";
+            }
+        }
+        return resultado;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
