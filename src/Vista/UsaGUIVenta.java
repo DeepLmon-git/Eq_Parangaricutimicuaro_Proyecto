@@ -22,19 +22,41 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     
     public String consultarVentasDadoEstado(ArrayList<Venta> datos, char estadoVenta){
         String resultado = "Ventas segun su Estado: "+estadoVenta+"\n";
-        int i=0;
-        for(Venta objVenta : datos){
-            if(objVenta.getEstado()== estadoVenta){
-                resultado+=objVenta.toString();
-                i++;
+        if(datos==null){
+             resultado+="No hay datos en el sistema";
+        }else{
+            int i=0;
+            for(Venta objVenta : datos){
+                if(objVenta.getEstado()== estadoVenta){
+                    resultado+=objVenta.toString();
+                    i++;
+                }
             }
-        }
-        if(i==0){
-            resultado+="No se encontraron Datos";
+            if(i==0){
+                resultado+="No se encontraron Datos";
+            }
         }
         return resultado;
     }
     
+    public String consultarVentaDadaPosicion(ArrayList<Venta> datos, char posicionVenta){
+        String resultado = "Ventas segun su Estado: "+posicionVenta+"\n";
+        if(datos==null){
+             resultado+="No hay datos en el sistema";
+        }else{
+            int i=0;
+            for(Venta objVenta : datos){
+                if(objVenta.getEstado()== posicionVenta){
+                    resultado+=objVenta.toString();
+                    i++;
+                }
+            }
+            if(i==0){
+                resultado+="No se encontraron Datos";
+            }
+        }
+        return resultado;
+    }
     
     
     @SuppressWarnings("unchecked")
