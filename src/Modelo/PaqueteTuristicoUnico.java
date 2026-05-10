@@ -49,7 +49,18 @@ public final class PaqueteTuristicoUnico extends PaqueteTuristico {
     }
     @Override
     public int calcularValorUnidad() {
-        return 0;
+        int valorBase = this.getTarifaDia() * this.calcularDuracionTotalDias();
+        int adicionalDesayuno = 0;
+
+        // Ejemplo de lógica adicional: Si es Buffet, se suma un costo extra [cite: 119, 120]
+        if (this.tipoDesayuno != null && this.tipoDesayuno.equalsIgnoreCase("Buffet")) {
+            adicionalDesayuno = 50000; // Valor de ejemplo para el adicional
+        } else if (this.tipoDesayuno != null && this.tipoDesayuno.equalsIgnoreCase("Americano")) {
+            adicionalDesayuno = 25000;
+        }
+
+        return valorBase + adicionalDesayuno;
     }
+    
 }
 
