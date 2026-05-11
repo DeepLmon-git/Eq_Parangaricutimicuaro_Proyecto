@@ -90,19 +90,29 @@ public class Venta {
     }
 
     public int calcularCantidadTotalUnidadesPaquetes() {
-        return 0;
+        int total = 0;
+        for (PaqueteTuristico paquete : susPaquetesTuristicos) {
+        total += paquete.getCantidadUnidades();
+        }
+    return total;
     }
     
     public int calcularValorTotalPaquetes() {
-        return 0;
+        int total = 0;
+        for (PaqueteTuristico paquete : susPaquetesTuristicos) {
+        total += paquete.calcularValorTotal();
+        }
+    return total;
     }
     
     public int calcularValorDescuento() {
-        return 0;
+        double porcentaje = suCliente.getPorcentajeDescuento();
+        int valorTotal = calcularValorTotalPaquetes();
+        return (int)(valorTotal * porcentaje / 100);
     }
     
     public int calcularValorTotalPagar() {
-        return 0;
+        return calcularValorTotalPaquetes() - calcularValorDescuento();
     }
 
     
