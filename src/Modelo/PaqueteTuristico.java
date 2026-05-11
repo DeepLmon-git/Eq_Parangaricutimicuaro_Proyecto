@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author CELY
  */
 public abstract class PaqueteTuristico {
     protected String codigo;
@@ -54,7 +54,11 @@ public abstract class PaqueteTuristico {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (nombre != null && nombre.length() >= 10) { // Mínimo 10 caracteres [cite: 91]
+            this.nombre = nombre;
+        } else {
+            throw new IllegalArgumentException("El nombre debe tener al menos 10 caracteres.");
+        }
     }
 
     public String getTipoligiaTurismo() {
@@ -70,7 +74,11 @@ public abstract class PaqueteTuristico {
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        if (descripcion != null && descripcion.length() <= 500) { // Máximo 500 caracteres [cite: 95]
+            this.descripcion = descripcion;
+        } else {
+            throw new IllegalArgumentException("La descripción no puede exceder los 500 caracteres.");
+        }
     }
 
     public String getOrigen() {
@@ -78,7 +86,7 @@ public abstract class PaqueteTuristico {
     }
 
     public void setOrigen(String origen) {
-        this.origen = origen;
+        this.origen = (origen == null || origen.isEmpty()) ? "CALI" : origen;
     }
 
     public ArrayList<Destino> getSusDestinos() {
@@ -144,6 +152,24 @@ public abstract class PaqueteTuristico {
     public void setCantidadUnidades(int cantidadUnidades) {
         this.cantidadUnidades = cantidadUnidades;
     }
+    
+    public int calcularDuracionTotalDias() {
+        int totalDias = 0;
+        if (susDestinos != null) {
+            for (Destino d : susDestinos) {
+                totalDias += d.getDiasPermanencia(); // Asumiendo que Destino tiene este getter [cite: 74]
+            }
+        }
+        return totalDias;
+    }
+    
+    public int calcularValorTotal() {
+        return this.cantidadUnidades * this.calcularValorUnidad();
+    }
+    
+    public abstract int calcularValorUnidad();
+    
+    
 
     @java.lang.Override
     public java.lang.String toString() {
@@ -163,16 +189,5 @@ public abstract class PaqueteTuristico {
                 ", cantidadUnidades=" + cantidadUnidades +
                 '}';
     }
-
-    public abstract int calcularValorUnidad();
     
-    public int calcularDuracionTotalDias() {
-        return 0;
-    }
-    
-    public int calcularValorTotal() {
-        return 0;
-    }
-
 }
-
