@@ -121,15 +121,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="jButton4" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Component id="jButtonNuevaVenta" alignment="1" min="-2" pref="115" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton2" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jButtonNuevaVenta" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -243,12 +241,12 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel5">
+                <Container class="javax.swing.JPanel" name="jPanelForm">
 
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
@@ -259,11 +257,17 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jPanelCliente" min="-2" pref="466" max="-2" attributes="0"/>
                                           <Component id="jPanelPlanTuristico" pref="0" max="32767" attributes="0"/>
-                                          <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jPanelDestinos" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                                      <Component id="jButtonAgregarVenta" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                                      <Component id="jButtonLimpiarVenta" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace pref="512" max="32767" attributes="0"/>
+                              <EmptySpace pref="24" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -277,8 +281,13 @@
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="jPanelPlanTuristico" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="177" max="32767" attributes="0"/>
+                              <Component id="jPanelDestinos" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jButtonAgregarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonLimpiarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="23" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -937,7 +946,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel3">
+                    <Container class="javax.swing.JPanel" name="jPanelDestinos">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -960,38 +969,37 @@
                                               <Component id="jLabel23" min="-2" pref="54" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                          <Component id="jRadioAtractivoIncluido" min="-2" pref="98" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jLabel27" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                                              <Component id="jLabel28" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                                              <Component id="jLabel29" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jFieldNombreDestino" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                                                              <Component id="jFieldDiasDestino" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                                                              <Component id="jFieldAtractivoDestino" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
+                                                      <Component id="jLabel27" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                                                      <Component id="jLabel28" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                                                      <Component id="jLabel29" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jFieldDiasDestino" min="-2" pref="71" max="-2" attributes="0"/>
+                                                      <Component id="jFieldAtractivoDestino" min="-2" pref="71" max="-2" attributes="0"/>
+                                                      <Component id="jFieldNombreDestino" min="-2" pref="71" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jRadioAtractivoNoIncluido" min="-2" pref="98" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="jButtonAñadirAtractivo" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jButtonVerAtractivo" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jButtonLimpiarAtractivo" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="jRadioAtractivoIncluido" min="-2" pref="98" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jRadioAtractivoNoIncluido" min="-2" pref="98" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonAñadirDestino" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                          <Component id="jButton5" min="-2" pref="109" max="-2" attributes="0"/>
+                                          <Component id="jButtonLimpiarDestino" min="-2" pref="109" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -1019,7 +1027,9 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jFieldAtractivoDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonAñadirAtractivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonVerAtractivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonLimpiarAtractivo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1029,8 +1039,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonAñadirDestino" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonLimpiarDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="9" max="32767" attributes="0"/>
                               </Group>
@@ -1080,35 +1090,76 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="si"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioAtractivoIncluidoActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JRadioButton" name="jRadioAtractivoNoIncluido">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="no"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioAtractivoNoIncluidoActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton1">
+                        <Component class="javax.swing.JButton" name="jButtonA&#xf1;adirDestino">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="A&#xf1;adir Destino"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonA&#xf1;adirDestinoActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton5">
+                        <Component class="javax.swing.JButton" name="jButtonLimpiarDestino">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Limpiar"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimpiarDestinoActionPerformed"/>
+                          </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton6">
+                        <Component class="javax.swing.JButton" name="jButtonA&#xf1;adirAtractivo">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="A&#xf1;adir atractivo"/>
+                            <Property name="text" type="java.lang.String" value="A&#xf1;adir "/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonA&#xf1;adirAtractivoActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButtonVerAtractivo">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Ver"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerAtractivoActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButtonLimpiarAtractivo">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Limpiar"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimpiarAtractivoActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JButton" name="jButtonAgregarVenta">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Agregar venta"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAgregarVentaActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButtonLimpiarVenta">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Limpiar datos"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLimpiarVentaActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
               </SubComponents>

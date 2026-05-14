@@ -7,9 +7,16 @@ package Vista;
 import Modelo.Destino;
 import Modelo.Venta;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -102,6 +109,43 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         }
         return resultado;
     }
+    private void LimpiarCamposVenta(JPanel panel){
+        for(Component component : panel.getComponents()){
+            if(component instanceof JTextField ){
+                ((JTextField) component).setText("");
+            }
+            if(component instanceof JRadioButton){
+                ((JRadioButton) component).setSelected(false);
+                ((JRadioButton) component).setEnabled(true);
+            }
+            if(component instanceof JCheckBox){
+                ((JCheckBox) component).setSelected(false);
+            }
+            if(component instanceof JTextArea){
+                ((JTextArea) component).setText(null);
+            }
+            if(panel == jPanelDestinos){
+                susDestinos.clear();
+                atractivos.clear();
+            }
+            if(panel == jPanelPlanTuristico){
+                jCheckBoxHotel.setSelected(true);
+                jCheckBoxComida.setSelected(true);
+                jCheckBoxVuelo.setSelected(true);
+                if (component instanceof JPanel){
+                    LimpiarCamposVenta((JPanel)component);
+                }
+                
+            }
+            jLabelContacto.setVisible(false);
+            jFieldNombreContacto.setVisible(false);
+            jLabelObsequio.setVisible(false);
+            jFieldObsequio.setVisible(false);
+            jSeparatorOculto.setVisible(false);
+            jPanelUnico.setVisible(false);
+        }
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -121,7 +165,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         panelCards = new javax.swing.JPanel();
         panelNuevaVenta = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel5 = new javax.swing.JPanel();
+        jPanelForm = new javax.swing.JPanel();
         jPanelCliente = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -179,7 +223,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jRadioDesayunoOnly = new javax.swing.JRadioButton();
         jLabelObsequio = new javax.swing.JLabel();
         jFieldObsequio = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelDestinos = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel27 = new javax.swing.JLabel();
@@ -191,9 +235,13 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jFieldAtractivoDestino = new javax.swing.JTextField();
         jRadioAtractivoIncluido = new javax.swing.JRadioButton();
         jRadioAtractivoNoIncluido = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonAñadirDestino = new javax.swing.JButton();
+        jButtonLimpiarDestino = new javax.swing.JButton();
+        jButtonAñadirAtractivo = new javax.swing.JButton();
+        jButtonVerAtractivo = new javax.swing.JButton();
+        jButtonLimpiarAtractivo = new javax.swing.JButton();
+        jButtonAgregarVenta = new javax.swing.JButton();
+        jButtonLimpiarVenta = new javax.swing.JButton();
         panelConsulta = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -266,14 +314,13 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton3))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonNuevaVenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -717,7 +764,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addComponent(jPanelUnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        jPanelDestinos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
 
         jLabel23.setText("Destinos");
 
@@ -732,115 +779,167 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jLabel30.setText("Atractivos Estan Incluidos");
 
         jRadioAtractivoIncluido.setText("si");
+        jRadioAtractivoIncluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioAtractivoIncluidoActionPerformed(evt);
+            }
+        });
 
         jRadioAtractivoNoIncluido.setText("no");
-
-        jButton1.setText("Añadir Destino");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jRadioAtractivoNoIncluido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jRadioAtractivoNoIncluidoActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Limpiar");
-
-        jButton6.setText("Añadir atractivo");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAñadirDestino.setText("Añadir Destino");
+        jButtonAñadirDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jButtonAñadirDestinoActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jButtonLimpiarDestino.setText("Limpiar");
+        jButtonLimpiarDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarDestinoActionPerformed(evt);
+            }
+        });
+
+        jButtonAñadirAtractivo.setText("Añadir ");
+        jButtonAñadirAtractivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAñadirAtractivoActionPerformed(evt);
+            }
+        });
+
+        jButtonVerAtractivo.setText("Ver");
+        jButtonVerAtractivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerAtractivoActionPerformed(evt);
+            }
+        });
+
+        jButtonLimpiarAtractivo.setText("Limpiar");
+        jButtonLimpiarAtractivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarAtractivoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelDestinosLayout = new javax.swing.GroupLayout(jPanelDestinos);
+        jPanelDestinos.setLayout(jPanelDestinosLayout);
+        jPanelDestinosLayout.setHorizontalGroup(
+            jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator5)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanelDestinosLayout.createSequentialGroup()
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDestinosLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel30)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(48, 48, 48)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanelDestinosLayout.createSequentialGroup()
+                                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton6)
-                                    .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButtonAñadirAtractivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonVerAtractivo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonLimpiarAtractivo))
+                            .addGroup(jPanelDestinosLayout.createSequentialGroup()
+                                .addComponent(jLabel30)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelDestinosLayout.createSequentialGroup()
                         .addGap(85, 85, 85)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonAñadirDestino)
                         .addGap(57, 57, 57)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonLimpiarDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanelDestinosLayout.setVerticalGroup(
+            jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDestinosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
                     .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29)
-                    .addComponent(jButton6))
+                    .addComponent(jButtonAñadirAtractivo)
+                    .addComponent(jButtonVerAtractivo)
+                    .addComponent(jButtonLimpiarAtractivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(jRadioAtractivoIncluido)
                     .addComponent(jRadioAtractivoNoIncluido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton5))
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAñadirDestino)
+                    .addComponent(jButtonLimpiarDestino))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+        jButtonAgregarVenta.setText("Agregar venta");
+        jButtonAgregarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarVentaActionPerformed(evt);
+            }
+        });
+
+        jButtonLimpiarVenta.setText("Limpiar datos");
+        jButtonLimpiarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarVentaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelFormLayout = new javax.swing.GroupLayout(jPanelForm);
+        jPanelForm.setLayout(jPanelFormLayout);
+        jPanelFormLayout.setHorizontalGroup(
+            jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFormLayout.createSequentialGroup()
+                .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFormLayout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addComponent(jLabel8))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(jPanelFormLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(512, Short.MAX_VALUE))
+                            .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanelFormLayout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jButtonAgregarVenta)
+                        .addGap(77, 77, 77)
+                        .addComponent(jButtonLimpiarVenta)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jPanelFormLayout.setVerticalGroup(
+            jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFormLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -848,11 +947,15 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addComponent(jPanelDestinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAgregarVenta)
+                    .addComponent(jButtonLimpiarVenta))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jPanel5);
+        jScrollPane1.setViewportView(jPanelForm);
 
         javax.swing.GroupLayout panelNuevaVentaLayout = new javax.swing.GroupLayout(panelNuevaVenta);
         panelNuevaVenta.setLayout(panelNuevaVentaLayout);
@@ -1052,12 +1155,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jRadioBuffet.setSelected(false);
     }//GEN-LAST:event_jRadioAmericanoActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButtonAñadirAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirAtractivoActionPerformed
         this.atractivos.add(jFieldAtractivoDestino.getText());
         jFieldAtractivoDestino.setText(null);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButtonAñadirAtractivoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAñadirDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirDestinoActionPerformed
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?","Confirmacion",JOptionPane.YES_NO_OPTION);
         
      
@@ -1102,7 +1205,61 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAñadirDestinoActionPerformed
+
+    private void jButtonVerAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAtractivoActionPerformed
+        String mensaje = "Atractivos Registrados:\n";
+        for(String atractivo : atractivos){
+            mensaje+=atractivo+"\n";
+        }
+        JOptionPane.showMessageDialog(null, mensaje);
+    }//GEN-LAST:event_jButtonVerAtractivoActionPerformed
+
+    private void jButtonLimpiarAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarAtractivoActionPerformed
+         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los actractivos registrados?","Confirmacion",JOptionPane.YES_NO_OPTION);
+         if(confirmacion==0){
+             atractivos.clear();
+             jFieldAtractivoDestino.setText(null);
+         }
+    }//GEN-LAST:event_jButtonLimpiarAtractivoActionPerformed
+
+    private void jRadioAtractivoIncluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioAtractivoIncluidoActionPerformed
+        jRadioAtractivoNoIncluido.setSelected(false);
+    }//GEN-LAST:event_jRadioAtractivoIncluidoActionPerformed
+
+    private void jRadioAtractivoNoIncluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioAtractivoNoIncluidoActionPerformed
+        jRadioAtractivoIncluido.setSelected(false);
+    }//GEN-LAST:event_jRadioAtractivoNoIncluidoActionPerformed
+
+    private void jButtonLimpiarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarDestinoActionPerformed
+       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea limpiar las celdas actuales? (tambien se limpiaran los atractivos)","Confirmacion",JOptionPane.YES_NO_OPTION);
+       if(confirmacion==0){
+           LimpiarCamposVenta(jPanelDestinos);
+       }
+       
+    }//GEN-LAST:event_jButtonLimpiarDestinoActionPerformed
+
+    private void jButtonAgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarVentaActionPerformed
+       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los datos actuales?","Confirmacion",JOptionPane.YES_NO_OPTION);
+       if(confirmacion==0){
+           for(Component component : jPanelForm.getComponents()){
+               if(component instanceof JPanel){
+                   LimpiarCamposVenta((JPanel)component);
+               }
+           }
+       }
+    }//GEN-LAST:event_jButtonAgregarVentaActionPerformed
+
+    private void jButtonLimpiarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarVentaActionPerformed
+       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los datos actuales? (Se limpiaran todos los campos)","Confirmacion",JOptionPane.YES_NO_OPTION);
+       if(confirmacion==0){
+           for(Component component : jPanelForm.getComponents()){
+               if(component instanceof JPanel){
+                   LimpiarCamposVenta((JPanel) component);
+               }
+           }
+       }
+    }//GEN-LAST:event_jButtonLimpiarVentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1142,13 +1299,17 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButtonAgregarVenta;
+    private javax.swing.JButton jButtonAñadirAtractivo;
+    private javax.swing.JButton jButtonAñadirDestino;
+    private javax.swing.JButton jButtonLimpiarAtractivo;
+    private javax.swing.JButton jButtonLimpiarDestino;
+    private javax.swing.JButton jButtonLimpiarVenta;
     private javax.swing.JButton jButtonNuevaVenta;
+    private javax.swing.JButton jButtonVerAtractivo;
     private javax.swing.JCheckBox jCheckBoxAsistencia;
     private javax.swing.JCheckBox jCheckBoxComida;
     private javax.swing.JCheckBox jCheckBoxHotel;
@@ -1201,9 +1362,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelObsequio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelCliente;
+    private javax.swing.JPanel jPanelDestinos;
+    private javax.swing.JPanel jPanelForm;
     private javax.swing.JPanel jPanelPaqueteAds;
     private javax.swing.JPanel jPanelPlanTuristico;
     private javax.swing.JPanel jPanelUnico;
