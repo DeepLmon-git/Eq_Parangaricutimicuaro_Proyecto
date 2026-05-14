@@ -4,9 +4,12 @@
  */
 package Vista;
 
+import Modelo.Destino;
 import Modelo.Venta;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,6 +20,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     /**
      * Creates new form UsaGUIVenta
      */
+    private LinkedList<String> atractivos = new LinkedList<>();
+    private ArrayList<Destino> susDestinos= new ArrayList<>();
+
     public UsaGUIVenta() {
         initComponents();
         jLabelContacto.setVisible(false);
@@ -25,8 +31,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jFieldObsequio.setVisible(false);
         jSeparatorOculto.setVisible(false);
         jPanelUnico.setVisible(false);
-        
-        
+
     }
 
     public String consultarTodasVentas(ArrayList<Venta> datos) {
@@ -70,10 +75,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 resultado += datos.get(0).toString();
             } else {
                 if (posicionVenta == 'u' || posicionVenta == 'U') {
-                    resultado += datos.get(datos.size()-1).toString();
-                }
-                else{
-                    
+                    resultado += datos.get(datos.size() - 1).toString();
+                } else {
+
                 }
             }
         }
@@ -105,6 +109,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
         jLabel5 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -181,11 +186,14 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jFieldNombreDestino = new javax.swing.JTextField();
+        jFieldDiasDestino = new javax.swing.JTextField();
+        jFieldAtractivoDestino = new javax.swing.JTextField();
+        jRadioAtractivoIncluido = new javax.swing.JRadioButton();
+        jRadioAtractivoNoIncluido = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         panelConsulta = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -723,9 +731,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
         jLabel30.setText("Atractivos Estan Incluidos");
 
-        jRadioButton1.setText("jRadioButton1");
+        jRadioAtractivoIncluido.setText("si");
 
-        jRadioButton2.setText("jRadioButton2");
+        jRadioAtractivoNoIncluido.setText("no");
+
+        jButton1.setText("Añadir Destino");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Limpiar");
+
+        jButton6.setText("Añadir atractivo");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -733,25 +757,36 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator5)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel30)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel30)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(48, 48, 48)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton6)
+                                    .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(85, 85, 85)
+                        .addComponent(jButton1)
+                        .addGap(57, 57, 57)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -764,21 +799,26 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29))
+                    .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel29)
+                    .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jRadioAtractivoIncluido)
+                    .addComponent(jRadioAtractivoNoIncluido))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -809,7 +849,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel5);
@@ -923,25 +963,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaVentaActionPerformed
-        CardLayout cl = (CardLayout)(panelCards.getLayout());
+        CardLayout cl = (CardLayout) (panelCards.getLayout());
 
         cl.show(panelCards, "card2");
     }//GEN-LAST:event_jButtonNuevaVentaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CardLayout cl = (CardLayout)(panelCards.getLayout());
+        CardLayout cl = (CardLayout) (panelCards.getLayout());
 
         cl.show(panelCards, "card3");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CardLayout cl = (CardLayout)(panelCards.getLayout());
+        CardLayout cl = (CardLayout) (panelCards.getLayout());
 
         cl.show(panelCards, "card2");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        CardLayout cl = (CardLayout)(panelCards.getLayout());
+        CardLayout cl = (CardLayout) (panelCards.getLayout());
 
         cl.show(panelCards, "card2");
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -971,29 +1011,29 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jFieldTipologiaActionPerformed
 
     private void jRadioMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioMultipleActionPerformed
-       jSeparatorOculto.setVisible(false);
-       jPanelUnico.setVisible(false);
-       jLabelObsequio.setVisible(true);
-       jFieldObsequio.setVisible(true);
-       jRadioUnico.setSelected(false);
-       
+        jSeparatorOculto.setVisible(false);
+        jPanelUnico.setVisible(false);
+        jLabelObsequio.setVisible(true);
+        jFieldObsequio.setVisible(true);
+        jRadioUnico.setSelected(false);
+
     }//GEN-LAST:event_jRadioMultipleActionPerformed
 
-    
+
     private void jRadioUnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioUnicoActionPerformed
-       jSeparatorOculto.setVisible(true);
-       jPanelUnico.setVisible(true);
-       jLabelObsequio.setVisible(false);
-       jFieldObsequio.setVisible(false);
-       jRadioMultiple.setSelected(false);
-       
+        jSeparatorOculto.setVisible(true);
+        jPanelUnico.setVisible(true);
+        jLabelObsequio.setVisible(false);
+        jFieldObsequio.setVisible(false);
+        jRadioMultiple.setSelected(false);
+
     }//GEN-LAST:event_jRadioUnicoActionPerformed
 
     private void jCheckBoxComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxComidaActionPerformed
-        if(jCheckBoxComida.isSelected()){
+        if (jCheckBoxComida.isSelected()) {
             jRadioAmericano.setEnabled(true);
             jRadioBuffet.setEnabled(true);
-        }else{
+        } else {
             jRadioAmericano.setEnabled(false);
             jRadioBuffet.setEnabled(false);
         }
@@ -1005,12 +1045,64 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
     private void jRadioBuffetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioBuffetActionPerformed
         jRadioAmericano.setSelected(false);
-        
+
     }//GEN-LAST:event_jRadioBuffetActionPerformed
 
     private void jRadioAmericanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioAmericanoActionPerformed
         jRadioBuffet.setSelected(false);
     }//GEN-LAST:event_jRadioAmericanoActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        this.atractivos.add(jFieldAtractivoDestino.getText());
+        jFieldAtractivoDestino.setText(null);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?","Confirmacion",JOptionPane.YES_NO_OPTION);
+        
+     
+        if (confirmacion == 0) {
+            if (jRadioUnico.isSelected() && susDestinos.isEmpty()) {
+                try {
+                    int dias = Integer.valueOf(jFieldDiasDestino.getText());
+                    boolean atractivoIncluido;
+                    atractivoIncluido = jRadioAtractivoIncluido.isSelected();
+                    Destino destino = new Destino(jFieldNombreDestino.getText(), dias, atractivos, atractivoIncluido);
+                    susDestinos.add(destino);
+               
+                    jRadioUnico.setEnabled(false);
+                    jRadioMultiple.setEnabled(false);
+                    atractivos.clear();
+                    JOptionPane.showMessageDialog(null,"Destino Agregado correctamente");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo de dias", "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                if (jRadioMultiple.isSelected()) {
+                    try {
+                        int dias = Integer.valueOf(jFieldDiasDestino.getText());
+                        boolean atractivoIncluido;
+                        atractivoIncluido = jRadioAtractivoIncluido.isSelected();
+                        Destino destino = new Destino(jFieldNombreDestino.getText(), dias, atractivos, atractivoIncluido);
+                        susDestinos.add(destino);
+                        jRadioUnico.setEnabled(false);
+                        jRadioMultiple.setEnabled(false);
+                        atractivos.clear();
+                        JOptionPane.showMessageDialog(null,"Destino Agregado correctamente");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo de dias", "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    if (!jRadioUnico.isSelected() && !jRadioMultiple.isSelected()) {
+                        JOptionPane.showMessageDialog(null, "Elija un tipo de paquete turistico", "Accion no admitida",JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Su plan no admite ingresar mas destinos", "Accion no admitida",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1049,18 +1141,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonNuevaVenta;
     private javax.swing.JCheckBox jCheckBoxAsistencia;
     private javax.swing.JCheckBox jCheckBoxComida;
     private javax.swing.JCheckBox jCheckBoxHotel;
     private javax.swing.JCheckBox jCheckBoxVuelo;
+    private javax.swing.JTextField jFieldAtractivoDestino;
     private javax.swing.JTextField jFieldCantidadU;
+    private javax.swing.JTextField jFieldDiasDestino;
     private javax.swing.JTextField jFieldEmail;
     private javax.swing.JTextField jFieldNombre;
     private javax.swing.JTextField jFieldNombreContacto;
+    private javax.swing.JTextField jFieldNombreDestino;
     private javax.swing.JTextField jFieldNombrePaquete;
     private javax.swing.JTextField jFieldNumeroID;
     private javax.swing.JTextField jFieldObsequio;
@@ -1109,9 +1208,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelPlanTuristico;
     private javax.swing.JPanel jPanelUnico;
     private javax.swing.JRadioButton jRadioAmericano;
+    private javax.swing.JRadioButton jRadioAtractivoIncluido;
+    private javax.swing.JRadioButton jRadioAtractivoNoIncluido;
     private javax.swing.JRadioButton jRadioBuffet;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioCC;
     private javax.swing.JRadioButton jRadioComidaComp;
     private javax.swing.JRadioButton jRadioDesayunoOnly;
@@ -1129,9 +1228,6 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinnerDescuento;
     private javax.swing.JTextArea jTextAreaDescripcion;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel panelActualizar;
     private javax.swing.JPanel panelArchivo;
     private javax.swing.JPanel panelCards;
