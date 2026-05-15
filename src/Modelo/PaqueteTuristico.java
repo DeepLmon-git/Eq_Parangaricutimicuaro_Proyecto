@@ -157,7 +157,7 @@ public abstract class PaqueteTuristico {
         int totalDias = 0;
         if (susDestinos != null) {
             for (Destino d : susDestinos) {
-                totalDias += d.getDiasPermanencia(); // Asumiendo que Destino tiene este getter [cite: 74]
+                totalDias += d.getDiasPermanencia(); 
             }
         }
         return totalDias;
