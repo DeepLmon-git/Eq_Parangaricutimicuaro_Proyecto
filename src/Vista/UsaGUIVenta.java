@@ -4,13 +4,14 @@
  */
 package Vista;
 
-import Modelo.Destino;
-import Modelo.Venta;
+import Modelo.*;
+
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import javax.swing.JCheckBox;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -28,7 +29,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
      * Creates new form UsaGUIVenta
      */
     private LinkedList<String> atractivos = new LinkedList<>();
-    private ArrayList<Destino> susDestinos= new ArrayList<>();
+    private ArrayList<Destino> susDestinos = new ArrayList<>();
+    ArrayList<Venta> datos = new ArrayList<>();
 
     public UsaGUIVenta() {
         initComponents();
@@ -38,16 +40,18 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jFieldObsequio.setVisible(false);
         jSeparatorOculto.setVisible(false);
         jPanelUnico.setVisible(false);
+        ocultarComponentes(jPanelOpcionesFiltros);
 
     }
 
     public String consultarTodasVentas(ArrayList<Venta> datos) {
         String resultado = "Todas las Ventas\n";
-        if (datos == null) {
+        if (datos.isEmpty()) {
             resultado += "No hay datos en el sistema";
         } else {
             for (Venta objVenta : datos) {
-                resultado += objVenta.toString();
+                resultado += objVenta.toString() + "\n"
+                        + "========================================================";
             }
 
         }
@@ -55,14 +59,15 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }
 
     public String consultarVentaDadoNumero(ArrayList<Venta> datos, int numeroVenta) {
-        String resultado = "Ventas segun su Estado\n";
+        String resultado = "Ventas segun su Numero de venta: " + numeroVenta + "\n";
         if (datos == null) {
             resultado += "No hay datos en el sistema";
         } else {
             int i = 0;
             for (Venta objVenta : datos) {
                 if (objVenta.getNumero() == numeroVenta) {
-                    resultado += objVenta.toString();
+                    resultado += objVenta.toString() + "\n"
+                            + "========================================================";
                     i++;
                 }
             }
@@ -75,7 +80,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
     public String consultarVentaDadaPosicion(ArrayList<Venta> datos, char posicionVenta) {
         String resultado = "Ventas segun su Posicion\n";
-        if (datos == null) {
+        if (datos.isEmpty()) {
             resultado += "No hay datos en el sistema";
         } else {
             if (posicionVenta == 'p' || posicionVenta == 'P') {
@@ -99,7 +104,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             int i = 0;
             for (Venta objVenta : datos) {
                 if (objVenta.getEstado() == estadoVenta) {
-                    resultado += objVenta.toString();
+                    resultado += objVenta.toString() + "\n"
+                            + "========================================================";
                     i++;
                 }
             }
@@ -109,33 +115,156 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         }
         return resultado;
     }
-    private void LimpiarCamposVenta(JPanel panel){
-        for(Component component : panel.getComponents()){
-            if(component instanceof JTextField ){
+
+    public String consultarVentaDadaCategoriaPaquete(ArrayList<Venta> datos, String categoriaPaquete) {
+
+        String resultado = "Ventas segun la categoria del paquete: "
+                + categoriaPaquete + "\n";
+
+        if (datos == null || datos.isEmpty()) {
+            return resultado + "No hay ventas registradas";
+        }
+
+        int contador = 0;
+
+        for (Venta venta : datos) {
+
+            boolean encontrada = false;
+
+            for (PaqueteTuristico paquete : venta.getSusPaquetesTuristicos()) {
+
+                // VALIDAR CATEGORÍA ÚNICO
+                if (categoriaPaquete.equalsIgnoreCase("Unico")
+                        && paquete instanceof PaqueteTuristicoUnico) {
+
+                    encontrada = true;
+                } // VALIDAR CATEGORÍA MÚLTIPLE
+                else if (categoriaPaquete.equalsIgnoreCase("Multiple")
+                        && paquete instanceof PaqueteTuristicoMultiple) {
+
+                    encontrada = true;
+                }
+            }
+
+            // SI LA VENTA TIENE ALGÚN PAQUETE DE ESA CATEGORÍA
+            if (encontrada) {
+
+                contador++;
+
+                resultado += "====================================\n";
+                resultado += "Número Venta: " + venta.getNumero() + "\n";
+                resultado += "Fecha Generación: "
+                        + venta.getFechaHoraGeneracion() + "\n";
+
+                resultado += "Fecha Actualización: "
+                        + venta.getFechaHoraActualizacion() + "\n";
+
+                resultado += "Estado: " + venta.getEstado() + "\n";
+
+                resultado += "Cliente: "
+                        + venta.getSuCliente().getNombre() + "\n";
+
+                resultado += "Cantidad Paquetes: "
+                        + venta.getSusPaquetesTuristicos().size() + "\n";
+
+                resultado += "Cantidad Total Unidades: "
+                        + venta.calcularCantidadTotalUnidadesPaquetes() + "\n";
+
+                resultado += "Valor Total Paquetes: "
+                        + venta.calcularValorTotalPaquetes() + "\n";
+
+                resultado += "Valor Descuento: "
+                        + venta.calcularValorDescuento() + "\n";
+
+                resultado += "Valor Total Pagar: "
+                        + venta.calcularValorTotalPagar() + "\n\n";
+
+                resultado += "----- PAQUETES -----\n";
+
+                for (PaqueteTuristico paquete : venta.getSusPaquetesTuristicos()) {
+
+                    boolean mostrar = false;
+
+                    if (categoriaPaquete.equalsIgnoreCase("Unico")
+                            && paquete instanceof PaqueteTuristicoUnico) {
+
+                        mostrar = true;
+                    }
+
+                    if (categoriaPaquete.equalsIgnoreCase("Multiple")
+                            && paquete instanceof PaqueteTuristicoMultiple) {
+
+                        mostrar = true;
+                    }
+
+                    if (mostrar) {
+
+                        resultado += "Código: " + paquete.getCodigo() + "\n";
+                        resultado += "Nombre: " + paquete.getNombre() + "\n";
+                        resultado += "Tipología: "
+                                + paquete.getTipologiaTurismo() + "\n";
+
+                        resultado += "Origen: "
+                                + paquete.getOrigen() + "\n";
+
+                        resultado += "Valor Unidad: "
+                                + paquete.calcularValorUnidad() + "\n";
+
+                        resultado += "Valor Total: "
+                                + paquete.calcularValorTotal() + "\n";
+
+                        // SI ES MÚLTIPLE
+                        if (paquete instanceof PaqueteTuristicoMultiple multiple) {
+
+                            resultado += "Destino Inicial: "
+                                    + multiple.obtenerDestinoInicial()
+                                            .getNombreLugar() + "\n";
+
+                            resultado += "Destino Final: "
+                                    + multiple.obtenerDestinoFinal()
+                                            .getNombreLugar() + "\n";
+                        }
+
+                        resultado += "\n";
+                    }
+                }
+            }
+        }
+
+        if (contador == 0) {
+            resultado += "No se encontraron ventas para esa categoría";
+        }
+
+        return resultado;
+    }
+
+    private void LimpiarCamposVenta(JPanel panel, int boton) {
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JTextField) {
                 ((JTextField) component).setText("");
             }
-            if(component instanceof JRadioButton){
+            if (component instanceof JRadioButton) {
                 ((JRadioButton) component).setSelected(false);
                 ((JRadioButton) component).setEnabled(true);
             }
-            if(component instanceof JCheckBox){
+            if (component instanceof JCheckBox) {
                 ((JCheckBox) component).setSelected(false);
             }
-            if(component instanceof JTextArea){
+            if (component instanceof JTextArea) {
                 ((JTextArea) component).setText(null);
             }
-            if(panel == jPanelDestinos){
+            if (panel == jPanelDestinos && boton == 1) {
                 susDestinos.clear();
                 atractivos.clear();
             }
-            if(panel == jPanelPlanTuristico){
+            if (panel == jPanelPlanTuristico) {
                 jCheckBoxHotel.setSelected(true);
                 jCheckBoxComida.setSelected(true);
                 jCheckBoxVuelo.setSelected(true);
-                if (component instanceof JPanel){
-                    LimpiarCamposVenta((JPanel)component);
+                if (component instanceof JPanel) {
+                    LimpiarCamposVenta((JPanel) component, 0);
                 }
-                
+
             }
             jLabelContacto.setVisible(false);
             jFieldNombreContacto.setVisible(false);
@@ -143,17 +272,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             jFieldObsequio.setVisible(false);
             jSeparatorOculto.setVisible(false);
             jPanelUnico.setVisible(false);
+            jAreaDestinos.setText(null);
         }
     }
-    
+
+    private void ocultarComponentes(JLayeredPane panel) {
+        for (Component component : panel.getComponents()) {
+            component.setVisible(false);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        filtros = new javax.swing.ButtonGroup();
+        filtrosPosicion = new javax.swing.ButtonGroup();
+        filtrosEstado = new javax.swing.ButtonGroup();
+        filtroCategoria = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -239,12 +376,32 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jButtonAñadirAtractivo = new javax.swing.JButton();
         jButtonVerAtractivo = new javax.swing.JButton();
         jButtonLimpiarAtractivo = new javax.swing.JButton();
+        jButtonLimpiarDestinos = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jAreaDestinos = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
         jButtonAgregarVenta = new javax.swing.JButton();
         jButtonLimpiarVenta = new javax.swing.JButton();
         panelConsulta = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jRadioFiltroTodos = new javax.swing.JRadioButton();
+        jRadioFiltroID = new javax.swing.JRadioButton();
+        jRadioFiltroPosicion = new javax.swing.JRadioButton();
+        jRadioFiltroEstado = new javax.swing.JRadioButton();
+        jRadioFiltroCategoria = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jAreaConsultas = new javax.swing.JTextArea();
+        jPanelOpcionesFiltros = new javax.swing.JLayeredPane();
+        jFieldDatos = new javax.swing.JTextField();
+        jRadioPrimero = new javax.swing.JRadioButton();
+        jRadioUltimo = new javax.swing.JRadioButton();
+        jRadioDefault = new javax.swing.JRadioButton();
+        jRadioPagado = new javax.swing.JRadioButton();
+        jRadioCancelado = new javax.swing.JRadioButton();
+        jRadioFiltroUnico = new javax.swing.JRadioButton();
+        jRadioFiltroMultiple = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
         panelActualizar = new javax.swing.JPanel();
         panelArchivo = new javax.swing.JPanel();
 
@@ -819,6 +976,19 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             }
         });
 
+        jButtonLimpiarDestinos.setText("Borrar Destinos");
+        jButtonLimpiarDestinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarDestinosActionPerformed(evt);
+            }
+        });
+
+        jAreaDestinos.setColumns(20);
+        jAreaDestinos.setRows(5);
+        jScrollPane4.setViewportView(jAreaDestinos);
+
+        jLabel7.setText("Lista de destinos");
+
         javax.swing.GroupLayout jPanelDestinosLayout = new javax.swing.GroupLayout(jPanelDestinos);
         jPanelDestinos.setLayout(jPanelDestinosLayout);
         jPanelDestinosLayout.setHorizontalGroup(
@@ -827,31 +997,39 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             .addGroup(jPanelDestinosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonAñadirDestino)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDestinosLayout.createSequentialGroup()
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAñadirAtractivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonVerAtractivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonLimpiarAtractivo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDestinosLayout.createSequentialGroup()
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonLimpiarDestinos)
+                            .addComponent(jLabel30))
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDestinosLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDestinosLayout.createSequentialGroup()
+                                .addGap(192, 192, 192)
+                                .addComponent(jButtonAñadirDestino))))
                     .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelDestinosLayout.createSequentialGroup()
-                            .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonAñadirAtractivo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButtonVerAtractivo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonLimpiarAtractivo))
-                        .addGroup(jPanelDestinosLayout.createSequentialGroup()
-                            .addComponent(jLabel30)
-                            .addGap(18, 18, 18)
-                            .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDestinosLayout.setVerticalGroup(
@@ -882,8 +1060,14 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                     .addComponent(jRadioAtractivoIncluido)
                     .addComponent(jRadioAtractivoNoIncluido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAñadirDestino)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAñadirDestino)
+                    .addComponent(jButtonLimpiarDestinos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jButtonAgregarVenta.setText("Agregar venta");
@@ -914,13 +1098,14 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanelFormLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jButtonAgregarVenta)
-                        .addGap(77, 77, 77)
-                        .addComponent(jButtonLimpiarVenta)))
+                            .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFormLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonAgregarVenta)
+                .addGap(84, 84, 84)
+                .addComponent(jButtonLimpiarVenta)
+                .addGap(124, 124, 124))
         );
         jPanelFormLayout.setVerticalGroup(
             jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -932,12 +1117,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelDestinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAgregarVenta)
-                    .addComponent(jButtonLimpiarVenta))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jButtonLimpiarVenta)
+                    .addComponent(jButtonAgregarVenta))
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(jPanelForm);
@@ -955,40 +1140,152 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
         panelCards.add(panelNuevaVenta, "card2");
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Consultas");
 
-        jLabel6.setText("jLabel6");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Filtros");
 
-        jLabel7.setText("jLabel7");
+        filtros.add(jRadioFiltroTodos);
+        jRadioFiltroTodos.setText("Todos");
+        jRadioFiltroTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioFiltroTodosActionPerformed(evt);
+            }
+        });
+
+        filtros.add(jRadioFiltroID);
+        jRadioFiltroID.setText("Numero");
+        jRadioFiltroID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioFiltroIDActionPerformed(evt);
+            }
+        });
+
+        filtros.add(jRadioFiltroPosicion);
+        jRadioFiltroPosicion.setText("Posicion");
+        jRadioFiltroPosicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioFiltroPosicionActionPerformed(evt);
+            }
+        });
+
+        filtros.add(jRadioFiltroEstado);
+        jRadioFiltroEstado.setText("Estado");
+        jRadioFiltroEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioFiltroEstadoActionPerformed(evt);
+            }
+        });
+
+        filtros.add(jRadioFiltroCategoria);
+        jRadioFiltroCategoria.setText("Categoria");
+        jRadioFiltroCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioFiltroCategoriaActionPerformed(evt);
+            }
+        });
+
+        jAreaConsultas.setColumns(20);
+        jAreaConsultas.setRows(5);
+        jScrollPane2.setViewportView(jAreaConsultas);
+
+        jPanelOpcionesFiltros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelOpcionesFiltros.add(jFieldDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 13, 71, -1));
+
+        filtrosPosicion.add(jRadioPrimero);
+        jRadioPrimero.setText("Primero");
+        jPanelOpcionesFiltros.setLayer(jRadioPrimero, javax.swing.JLayeredPane.DRAG_LAYER);
+        jPanelOpcionesFiltros.add(jRadioPrimero, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 70, -1));
+
+        filtrosPosicion.add(jRadioUltimo);
+        jRadioUltimo.setText("Ultimo");
+        jPanelOpcionesFiltros.setLayer(jRadioUltimo, javax.swing.JLayeredPane.DRAG_LAYER);
+        jPanelOpcionesFiltros.add(jRadioUltimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 70, -1));
+
+        filtrosEstado.add(jRadioDefault);
+        jRadioDefault.setText("Predeterminado");
+        jPanelOpcionesFiltros.add(jRadioDefault, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        filtrosEstado.add(jRadioPagado);
+        jRadioPagado.setText("Pagado");
+        jRadioPagado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioPagadoActionPerformed(evt);
+            }
+        });
+        jPanelOpcionesFiltros.add(jRadioPagado, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
+
+        filtrosEstado.add(jRadioCancelado);
+        jRadioCancelado.setText("cancelado");
+        jPanelOpcionesFiltros.add(jRadioCancelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, -1));
+
+        filtroCategoria.add(jRadioFiltroUnico);
+        jRadioFiltroUnico.setText("Plan unico");
+        jPanelOpcionesFiltros.add(jRadioFiltroUnico, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
+
+        filtroCategoria.add(jRadioFiltroMultiple);
+        jRadioFiltroMultiple.setText("Plan Multiple");
+        jPanelOpcionesFiltros.add(jRadioFiltroMultiple, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+
+        jButton1.setText("Consultar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelConsultaLayout = new javax.swing.GroupLayout(panelConsulta);
         panelConsulta.setLayout(panelConsultaLayout);
         panelConsultaLayout.setHorizontalGroup(
             panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelConsultaLayout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
                 .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaLayout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(188, 188, 188))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaLayout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(108, 108, 108))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addContainerGap()
+                        .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioFiltroCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioFiltroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioFiltroPosicion, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioFiltroID, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioFiltroTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(panelConsultaLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel4)
+                        .addGap(25, 25, 25)))
+                .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelOpcionesFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         panelConsultaLayout.setVerticalGroup(
             panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelConsultaLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(14, 14, 14)
                 .addComponent(jLabel4)
-                .addGap(65, 65, 65)
-                .addComponent(jLabel6)
-                .addGap(69, 69, 69)
-                .addComponent(jLabel7)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(jPanelOpcionesFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioFiltroTodos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioFiltroID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioFiltroPosicion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioFiltroEstado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioFiltroCategoria)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         panelCards.add(panelConsulta, "card3");
@@ -1001,7 +1298,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         );
         panelActualizarLayout.setVerticalGroup(
             panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+            .addGap(0, 324, Short.MAX_VALUE)
         );
 
         panelCards.add(panelActualizar, "card4");
@@ -1014,7 +1311,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         );
         panelArchivoLayout.setVerticalGroup(
             panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+            .addGap(0, 324, Short.MAX_VALUE)
         );
 
         panelCards.add(panelArchivo, "card5");
@@ -1150,9 +1447,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAñadirAtractivoActionPerformed
 
     private void jButtonAñadirDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirDestinoActionPerformed
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?","Confirmacion",JOptionPane.YES_NO_OPTION);
-        
-     
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        String listaDestinos = "Lista de destinos agregados: \n";
         if (confirmacion == 0) {
             if (jRadioUnico.isSelected() && susDestinos.isEmpty()) {
                 try {
@@ -1161,12 +1457,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                     atractivoIncluido = jRadioAtractivoIncluido.isSelected();
                     Destino destino = new Destino(jFieldNombreDestino.getText(), dias, atractivos, atractivoIncluido);
                     susDestinos.add(destino);
-               
+
                     jRadioUnico.setEnabled(false);
                     jRadioMultiple.setEnabled(false);
                     atractivos.clear();
-                    JOptionPane.showMessageDialog(null,"Destino Agregado correctamente");
-                    LimpiarCamposVenta(jPanelDestinos);
+                    JOptionPane.showMessageDialog(null, "Destino Agregado correctamente");
+                    LimpiarCamposVenta(jPanelDestinos, 0);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo de dias", "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
                 }
@@ -1181,37 +1477,43 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         jRadioUnico.setEnabled(false);
                         jRadioMultiple.setEnabled(false);
                         atractivos.clear();
-                        JOptionPane.showMessageDialog(null,"Destino Agregado correctamente");
-                        LimpiarCamposVenta(jPanelDestinos);
+                        JOptionPane.showMessageDialog(null, "Destino Agregado correctamente");
+                        LimpiarCamposVenta(jPanelDestinos, 0);
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo de dias", "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     if (!jRadioUnico.isSelected() && !jRadioMultiple.isSelected()) {
-                        JOptionPane.showMessageDialog(null, "Elija un tipo de paquete turistico", "Accion no admitida",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Elija un tipo de paquete turistico", "Accion no admitida", JOptionPane.ERROR_MESSAGE);
+                        return;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Su plan no admite ingresar mas destinos", "Accion no admitida",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Su plan no admite ingresar mas destinos", "Accion no admitida", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 }
             }
-
+            for (Destino objD : susDestinos) {
+                listaDestinos += objD.toString() + "\n";
+            }
+            jAreaDestinos.setText(listaDestinos);
         }
+
     }//GEN-LAST:event_jButtonAñadirDestinoActionPerformed
 
     private void jButtonVerAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAtractivoActionPerformed
         String mensaje = "Atractivos Registrados:\n";
-        for(String atractivo : atractivos){
-            mensaje+=atractivo+"\n";
+        for (String atractivo : atractivos) {
+            mensaje += atractivo + "\n";
         }
         JOptionPane.showMessageDialog(null, mensaje);
     }//GEN-LAST:event_jButtonVerAtractivoActionPerformed
 
     private void jButtonLimpiarAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarAtractivoActionPerformed
-         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los actractivos registrados?","Confirmacion",JOptionPane.YES_NO_OPTION);
-         if(confirmacion==0){
-             atractivos.clear();
-             jFieldAtractivoDestino.setText(null);
-         }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los actractivos registrados?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            atractivos.clear();
+            jFieldAtractivoDestino.setText(null);
+        }
     }//GEN-LAST:event_jButtonLimpiarAtractivoActionPerformed
 
     private void jRadioAtractivoIncluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioAtractivoIncluidoActionPerformed
@@ -1223,26 +1525,195 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioAtractivoNoIncluidoActionPerformed
 
     private void jButtonAgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarVentaActionPerformed
-       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los datos actuales?","Confirmacion",JOptionPane.YES_NO_OPTION);
-       if(confirmacion==0){
-           for(Component component : jPanelForm.getComponents()){
-               if(component instanceof JPanel){
-                   LimpiarCamposVenta((JPanel)component);
-               }
-           }
-       }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los datos actuales?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            for (Component component : jPanelForm.getComponents()) {
+                if (component instanceof JPanel) {
+                    LimpiarCamposVenta((JPanel) component, 1);
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonAgregarVentaActionPerformed
 
     private void jButtonLimpiarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarVentaActionPerformed
-       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los datos actuales? (Se limpiaran todos los campos)","Confirmacion",JOptionPane.YES_NO_OPTION);
-       if(confirmacion==0){
-           for(Component component : jPanelForm.getComponents()){
-               if(component instanceof JPanel){
-                   LimpiarCamposVenta((JPanel) component);
-               }
-           }
-       }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los datos actuales? (Se limpiaran todos los campos)", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            for (Component component : jPanelForm.getComponents()) {
+                if (component instanceof JPanel) {
+                    LimpiarCamposVenta((JPanel) component, 1);
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonLimpiarVentaActionPerformed
+
+    private void jRadioPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioPagadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioPagadoActionPerformed
+
+    private void jRadioFiltroIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroIDActionPerformed
+        if (jRadioFiltroID.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            jFieldDatos.setVisible(true);
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
+    }//GEN-LAST:event_jRadioFiltroIDActionPerformed
+
+    private void jRadioFiltroPosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroPosicionActionPerformed
+        if (jRadioFiltroPosicion.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            jRadioPrimero.setVisible(true);
+            jRadioUltimo.setVisible(true);
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
+    }//GEN-LAST:event_jRadioFiltroPosicionActionPerformed
+
+    private void jRadioFiltroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroEstadoActionPerformed
+        if (jRadioFiltroEstado.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            jRadioDefault.setVisible(true);
+            jRadioPagado.setVisible(true);
+            jRadioCancelado.setVisible(true);
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
+    }//GEN-LAST:event_jRadioFiltroEstadoActionPerformed
+
+    private void jRadioFiltroCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroCategoriaActionPerformed
+        if (jRadioFiltroCategoria.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            System.out.println("HOla");
+            jRadioFiltroUnico.setVisible(true);
+            jRadioFiltroMultiple.setVisible(true);
+            System.out.println("adios");
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
+    }//GEN-LAST:event_jRadioFiltroCategoriaActionPerformed
+
+    private void jRadioFiltroTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroTodosActionPerformed
+        ocultarComponentes(jPanelOpcionesFiltros);
+    }//GEN-LAST:event_jRadioFiltroTodosActionPerformed
+
+    @SuppressWarnings("UnusedAssignment")
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // CONSULTAR TODAS
+        if (jRadioFiltroTodos.isSelected()) {
+
+            jAreaConsultas.setText(consultarTodasVentas(datos));
+            return;
+        }
+
+        // CONSULTAR POR ID
+        if (jRadioFiltroID.isSelected()) {
+
+            try {
+
+                int codigo = Integer.parseInt(jFieldDatos.getText());
+
+                jAreaConsultas.setText(
+                        consultarVentaDadoNumero(datos, codigo)
+                );
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Digite un valor correcto en el campo del Numero de Venta",
+                        "Error Al digitar datos",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+            return;
+        }
+
+        // CONSULTAR POR ESTADO
+        if (jRadioFiltroEstado.isSelected()) {
+
+            if (jRadioDefault.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentasDadoEstado(datos, 'A')
+                );
+
+            } else if (jRadioPagado.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentasDadoEstado(datos, 'P')
+                );
+
+            } else if (jRadioCancelado.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentasDadoEstado(datos, 'C')
+                );
+
+            } else {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Seleccione un estado por favor"
+                );
+            }
+
+            return;
+        }
+
+        // CONSULTAR POR CATEGORÍA
+        if (jRadioFiltroCategoria.isSelected()) {
+
+            if (jRadioFiltroUnico.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaCategoriaPaquete(datos, "Unico")
+                );
+
+            } else if (jRadioFiltroMultiple.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaCategoriaPaquete(datos, "Multiple")
+                );
+            }
+
+            return;
+        }
+
+        // CONSULTAR POR POSICIÓN
+        if (jRadioFiltroPosicion.isSelected()) {
+
+            if (jRadioPrimero.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaPosicion(datos, 'p')
+                );
+                return;
+
+            } else if (jRadioUltimo.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaPosicion(datos, 'u')
+                );
+                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favos seleccione la posicion que desea buscar",
+                        "Error de busqueda", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(null, "Por favor seleccione un filtro",
+                "Error de busqueda", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonLimpiarDestinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarDestinosActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar todos los destinos anteriormente agregados?",
+                 "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            susDestinos.clear();
+            jAreaDestinos.setText(null);
+        }
+    }//GEN-LAST:event_jButtonLimpiarDestinosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1280,8 +1751,13 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup filtroCategoria;
+    private javax.swing.ButtonGroup filtros;
+    private javax.swing.ButtonGroup filtrosEstado;
+    private javax.swing.ButtonGroup filtrosPosicion;
+    private javax.swing.JTextArea jAreaConsultas;
+    private javax.swing.JTextArea jAreaDestinos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1289,6 +1765,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAñadirAtractivo;
     private javax.swing.JButton jButtonAñadirDestino;
     private javax.swing.JButton jButtonLimpiarAtractivo;
+    private javax.swing.JButton jButtonLimpiarDestinos;
     private javax.swing.JButton jButtonLimpiarVenta;
     private javax.swing.JButton jButtonNuevaVenta;
     private javax.swing.JButton jButtonVerAtractivo;
@@ -1298,6 +1775,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxVuelo;
     private javax.swing.JTextField jFieldAtractivoDestino;
     private javax.swing.JTextField jFieldCantidadU;
+    private javax.swing.JTextField jFieldDatos;
     private javax.swing.JTextField jFieldDiasDestino;
     private javax.swing.JTextField jFieldEmail;
     private javax.swing.JTextField jFieldNombre;
@@ -1347,6 +1825,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCliente;
     private javax.swing.JPanel jPanelDestinos;
     private javax.swing.JPanel jPanelForm;
+    private javax.swing.JLayeredPane jPanelOpcionesFiltros;
     private javax.swing.JPanel jPanelPaqueteAds;
     private javax.swing.JPanel jPanelPlanTuristico;
     private javax.swing.JPanel jPanelUnico;
@@ -1355,13 +1834,27 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioAtractivoNoIncluido;
     private javax.swing.JRadioButton jRadioBuffet;
     private javax.swing.JRadioButton jRadioCC;
+    private javax.swing.JRadioButton jRadioCancelado;
     private javax.swing.JRadioButton jRadioComidaComp;
+    private javax.swing.JRadioButton jRadioDefault;
     private javax.swing.JRadioButton jRadioDesayunoOnly;
+    private javax.swing.JRadioButton jRadioFiltroCategoria;
+    private javax.swing.JRadioButton jRadioFiltroEstado;
+    private javax.swing.JRadioButton jRadioFiltroID;
+    private javax.swing.JRadioButton jRadioFiltroMultiple;
+    private javax.swing.JRadioButton jRadioFiltroPosicion;
+    private javax.swing.JRadioButton jRadioFiltroTodos;
+    private javax.swing.JRadioButton jRadioFiltroUnico;
     private javax.swing.JRadioButton jRadioMultiple;
     private javax.swing.JRadioButton jRadioNIT;
+    private javax.swing.JRadioButton jRadioPagado;
+    private javax.swing.JRadioButton jRadioPrimero;
+    private javax.swing.JRadioButton jRadioUltimo;
     private javax.swing.JRadioButton jRadioUnico;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;

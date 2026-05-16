@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public abstract class PaqueteTuristico {
     protected String codigo;
     protected String nombre;
-    protected String tipoligiaTurismo;
+    protected String tipologiaTurismo;
     protected String descripcion;
     protected String origen;
     protected ArrayList<Destino> susDestinos;
@@ -28,7 +28,7 @@ public abstract class PaqueteTuristico {
     public PaqueteTuristico(String codigo, String nombre, String tipoligiaTurismo, String descripcion, String origen, ArrayList<Destino> susDestinos, boolean hotel, boolean alimentacion, boolean alimentacionTodo, boolean vuelo, boolean asistencia, int tarifaDia, int cantidadUnidades) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.tipoligiaTurismo = tipoligiaTurismo;
+        this.tipologiaTurismo = tipoligiaTurismo;
         this.descripcion = descripcion;
         this.origen = origen;
         this.susDestinos = susDestinos;
@@ -61,12 +61,12 @@ public abstract class PaqueteTuristico {
         }
     }
 
-    public String getTipoligiaTurismo() {
-        return tipoligiaTurismo;
+    public String getTipologiaTurismo() {
+        return tipologiaTurismo;
     }
 
-    public void setTipoligiaTurismo(String tipoligiaTurismo) {
-        this.tipoligiaTurismo = tipoligiaTurismo;
+    public void setTipologiaTurismo(String tipologiaTurismo) {
+        this.tipologiaTurismo = tipologiaTurismo;
     }
 
     public String getDescripcion() {
@@ -176,7 +176,7 @@ public abstract class PaqueteTuristico {
         return "PaqueteTuristico{" +
                 "codigo='" + codigo + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", tipoligiaTurismo='" + tipoligiaTurismo + '\'' +
+                ", tipoligiaTurismo='" + tipologiaTurismo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", origen='" + origen + '\'' +
                 ", susDestinos=" + susDestinos +
