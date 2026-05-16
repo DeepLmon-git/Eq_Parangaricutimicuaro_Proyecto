@@ -29,8 +29,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
      * Creates new form UsaGUIVenta
      */
     private LinkedList<String> atractivos = new LinkedList<>();
-    private ArrayList<Destino> susDestinos= new ArrayList<>();
+    private ArrayList<Destino> susDestinos = new ArrayList<>();
     ArrayList<Venta> datos = new ArrayList<>();
+
     public UsaGUIVenta() {
         initComponents();
         jLabelContacto.setVisible(false);
@@ -40,7 +41,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jSeparatorOculto.setVisible(false);
         jPanelUnico.setVisible(false);
         ocultarComponentes(jPanelOpcionesFiltros);
-        
+
     }
 
     public String consultarTodasVentas(ArrayList<Venta> datos) {
@@ -49,8 +50,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             resultado += "No hay datos en el sistema";
         } else {
             for (Venta objVenta : datos) {
-                resultado += objVenta.toString()+"\n"
-                            + "========================================================";
+                resultado += objVenta.toString() + "\n"
+                        + "========================================================";
             }
 
         }
@@ -58,14 +59,14 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }
 
     public String consultarVentaDadoNumero(ArrayList<Venta> datos, int numeroVenta) {
-        String resultado = "Ventas segun su Estado\n";
+        String resultado = "Ventas segun su Numero de venta: " + numeroVenta + "\n";
         if (datos == null) {
             resultado += "No hay datos en el sistema";
         } else {
             int i = 0;
             for (Venta objVenta : datos) {
                 if (objVenta.getNumero() == numeroVenta) {
-                    resultado += objVenta.toString()+"\n"
+                    resultado += objVenta.toString() + "\n"
                             + "========================================================";
                     i++;
                 }
@@ -103,7 +104,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             int i = 0;
             for (Venta objVenta : datos) {
                 if (objVenta.getEstado() == estadoVenta) {
-                    resultado += objVenta.toString()+"\n"
+                    resultado += objVenta.toString() + "\n"
                             + "========================================================";
                     i++;
                 }
@@ -114,6 +115,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         }
         return resultado;
     }
+
     public String consultarVentaDadaCategoriaPaquete(ArrayList<Venta> datos, String categoriaPaquete) {
 
         String resultado = "Ventas segun la categoria del paquete: "
@@ -136,9 +138,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         && paquete instanceof PaqueteTuristicoUnico) {
 
                     encontrada = true;
-                }
-
-                // VALIDAR CATEGORÍA MÚLTIPLE
+                } // VALIDAR CATEGORÍA MÚLTIPLE
                 else if (categoriaPaquete.equalsIgnoreCase("Multiple")
                         && paquete instanceof PaqueteTuristicoMultiple) {
 
@@ -218,11 +218,11 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
                             resultado += "Destino Inicial: "
                                     + multiple.obtenerDestinoInicial()
-                                    .getNombreLugar() + "\n";
+                                            .getNombreLugar() + "\n";
 
                             resultado += "Destino Final: "
                                     + multiple.obtenerDestinoFinal()
-                                    .getNombreLugar() + "\n";
+                                            .getNombreLugar() + "\n";
                         }
 
                         resultado += "\n";
@@ -237,33 +237,34 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
         return resultado;
     }
-    private void LimpiarCamposVenta(JPanel panel){
-        for(Component component : panel.getComponents()){
-            if(component instanceof JTextField ){
+
+    private void LimpiarCamposVenta(JPanel panel, int boton) {
+        for (Component component : panel.getComponents()) {
+            if (component instanceof JTextField) {
                 ((JTextField) component).setText("");
             }
-            if(component instanceof JRadioButton){
+            if (component instanceof JRadioButton) {
                 ((JRadioButton) component).setSelected(false);
                 ((JRadioButton) component).setEnabled(true);
             }
-            if(component instanceof JCheckBox){
+            if (component instanceof JCheckBox) {
                 ((JCheckBox) component).setSelected(false);
             }
-            if(component instanceof JTextArea){
+            if (component instanceof JTextArea) {
                 ((JTextArea) component).setText(null);
             }
-            if(panel == jPanelDestinos){
+            if (panel == jPanelDestinos && boton == 1) {
                 susDestinos.clear();
                 atractivos.clear();
             }
-            if(panel == jPanelPlanTuristico){
+            if (panel == jPanelPlanTuristico) {
                 jCheckBoxHotel.setSelected(true);
                 jCheckBoxComida.setSelected(true);
                 jCheckBoxVuelo.setSelected(true);
-                if (component instanceof JPanel){
-                    LimpiarCamposVenta((JPanel)component);
+                if (component instanceof JPanel) {
+                    LimpiarCamposVenta((JPanel) component, 0);
                 }
-                
+
             }
             jLabelContacto.setVisible(false);
             jFieldNombreContacto.setVisible(false);
@@ -271,14 +272,15 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             jFieldObsequio.setVisible(false);
             jSeparatorOculto.setVisible(false);
             jPanelUnico.setVisible(false);
+            jAreaDestinos.setText(null);
         }
     }
-    private void ocultarComponentes(JLayeredPane panel){
-        for(Component component : panel.getComponents()){
+
+    private void ocultarComponentes(JLayeredPane panel) {
+        for (Component component : panel.getComponents()) {
             component.setVisible(false);
         }
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -374,6 +376,10 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jButtonAñadirAtractivo = new javax.swing.JButton();
         jButtonVerAtractivo = new javax.swing.JButton();
         jButtonLimpiarAtractivo = new javax.swing.JButton();
+        jButtonLimpiarDestinos = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jAreaDestinos = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
         jButtonAgregarVenta = new javax.swing.JButton();
         jButtonLimpiarVenta = new javax.swing.JButton();
         panelConsulta = new javax.swing.JPanel();
@@ -970,6 +976,19 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             }
         });
 
+        jButtonLimpiarDestinos.setText("Borrar Destinos");
+        jButtonLimpiarDestinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarDestinosActionPerformed(evt);
+            }
+        });
+
+        jAreaDestinos.setColumns(20);
+        jAreaDestinos.setRows(5);
+        jScrollPane4.setViewportView(jAreaDestinos);
+
+        jLabel7.setText("Lista de destinos");
+
         javax.swing.GroupLayout jPanelDestinosLayout = new javax.swing.GroupLayout(jPanelDestinos);
         jPanelDestinos.setLayout(jPanelDestinosLayout);
         jPanelDestinosLayout.setHorizontalGroup(
@@ -978,31 +997,39 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             .addGroup(jPanelDestinosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonAñadirDestino)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDestinosLayout.createSequentialGroup()
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonAñadirAtractivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonVerAtractivo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonLimpiarAtractivo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDestinosLayout.createSequentialGroup()
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonLimpiarDestinos)
+                            .addComponent(jLabel30))
+                        .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelDestinosLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDestinosLayout.createSequentialGroup()
+                                .addGap(192, 192, 192)
+                                .addComponent(jButtonAñadirDestino))))
                     .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanelDestinosLayout.createSequentialGroup()
-                            .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jFieldDiasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFieldAtractivoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFieldNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addComponent(jButtonAñadirAtractivo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButtonVerAtractivo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonLimpiarAtractivo))
-                        .addGroup(jPanelDestinosLayout.createSequentialGroup()
-                            .addComponent(jLabel30)
-                            .addGap(18, 18, 18)
-                            .addComponent(jRadioAtractivoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jRadioAtractivoNoIncluido, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDestinosLayout.setVerticalGroup(
@@ -1033,8 +1060,14 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                     .addComponent(jRadioAtractivoIncluido)
                     .addComponent(jRadioAtractivoNoIncluido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonAñadirDestino)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGroup(jPanelDestinosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAñadirDestino)
+                    .addComponent(jButtonLimpiarDestinos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jButtonAgregarVenta.setText("Agregar venta");
@@ -1064,14 +1097,15 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanelFormLayout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jButtonAgregarVenta)
-                        .addGap(77, 77, 77)
-                        .addComponent(jButtonLimpiarVenta)))
+                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFormLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButtonAgregarVenta)
+                .addGap(84, 84, 84)
+                .addComponent(jButtonLimpiarVenta)
+                .addGap(124, 124, 124))
         );
         jPanelFormLayout.setVerticalGroup(
             jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1083,12 +1117,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelDestinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAgregarVenta)
-                    .addComponent(jButtonLimpiarVenta))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jButtonLimpiarVenta)
+                    .addComponent(jButtonAgregarVenta))
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(jPanelForm);
@@ -1413,9 +1447,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAñadirAtractivoActionPerformed
 
     private void jButtonAñadirDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirDestinoActionPerformed
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?","Confirmacion",JOptionPane.YES_NO_OPTION);
-        
-     
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los cambios?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        String listaDestinos = "Lista de destinos agregados: \n";
         if (confirmacion == 0) {
             if (jRadioUnico.isSelected() && susDestinos.isEmpty()) {
                 try {
@@ -1424,12 +1457,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                     atractivoIncluido = jRadioAtractivoIncluido.isSelected();
                     Destino destino = new Destino(jFieldNombreDestino.getText(), dias, atractivos, atractivoIncluido);
                     susDestinos.add(destino);
-               
+
                     jRadioUnico.setEnabled(false);
                     jRadioMultiple.setEnabled(false);
                     atractivos.clear();
-                    JOptionPane.showMessageDialog(null,"Destino Agregado correctamente");
-                    LimpiarCamposVenta(jPanelDestinos);
+                    JOptionPane.showMessageDialog(null, "Destino Agregado correctamente");
+                    LimpiarCamposVenta(jPanelDestinos, 0);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo de dias", "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
                 }
@@ -1444,37 +1477,43 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         jRadioUnico.setEnabled(false);
                         jRadioMultiple.setEnabled(false);
                         atractivos.clear();
-                        JOptionPane.showMessageDialog(null,"Destino Agregado correctamente");
-                        LimpiarCamposVenta(jPanelDestinos);
+                        JOptionPane.showMessageDialog(null, "Destino Agregado correctamente");
+                        LimpiarCamposVenta(jPanelDestinos, 0);
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo de dias", "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     if (!jRadioUnico.isSelected() && !jRadioMultiple.isSelected()) {
-                        JOptionPane.showMessageDialog(null, "Elija un tipo de paquete turistico", "Accion no admitida",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Elija un tipo de paquete turistico", "Accion no admitida", JOptionPane.ERROR_MESSAGE);
+                        return;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Su plan no admite ingresar mas destinos", "Accion no admitida",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Su plan no admite ingresar mas destinos", "Accion no admitida", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 }
             }
-
+            for (Destino objD : susDestinos) {
+                listaDestinos += objD.toString() + "\n";
+            }
+            jAreaDestinos.setText(listaDestinos);
         }
+
     }//GEN-LAST:event_jButtonAñadirDestinoActionPerformed
 
     private void jButtonVerAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerAtractivoActionPerformed
         String mensaje = "Atractivos Registrados:\n";
-        for(String atractivo : atractivos){
-            mensaje+=atractivo+"\n";
+        for (String atractivo : atractivos) {
+            mensaje += atractivo + "\n";
         }
         JOptionPane.showMessageDialog(null, mensaje);
     }//GEN-LAST:event_jButtonVerAtractivoActionPerformed
 
     private void jButtonLimpiarAtractivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarAtractivoActionPerformed
-         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los actractivos registrados?","Confirmacion",JOptionPane.YES_NO_OPTION);
-         if(confirmacion==0){
-             atractivos.clear();
-             jFieldAtractivoDestino.setText(null);
-         }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los actractivos registrados?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            atractivos.clear();
+            jFieldAtractivoDestino.setText(null);
+        }
     }//GEN-LAST:event_jButtonLimpiarAtractivoActionPerformed
 
     private void jRadioAtractivoIncluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioAtractivoIncluidoActionPerformed
@@ -1486,25 +1525,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioAtractivoNoIncluidoActionPerformed
 
     private void jButtonAgregarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarVentaActionPerformed
-       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los datos actuales?","Confirmacion",JOptionPane.YES_NO_OPTION);
-       if(confirmacion==0){
-           for(Component component : jPanelForm.getComponents()){
-               if(component instanceof JPanel){
-                   LimpiarCamposVenta((JPanel)component);
-               }
-           }
-       }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea guardar los datos actuales?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            for (Component component : jPanelForm.getComponents()) {
+                if (component instanceof JPanel) {
+                    LimpiarCamposVenta((JPanel) component, 1);
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonAgregarVentaActionPerformed
 
     private void jButtonLimpiarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarVentaActionPerformed
-       int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los datos actuales? (Se limpiaran todos los campos)","Confirmacion",JOptionPane.YES_NO_OPTION);
-       if(confirmacion==0){
-           for(Component component : jPanelForm.getComponents()){
-               if(component instanceof JPanel){
-                   LimpiarCamposVenta((JPanel) component);
-               }
-           }
-       }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea borrar los datos actuales? (Se limpiaran todos los campos)", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            for (Component component : jPanelForm.getComponents()) {
+                if (component instanceof JPanel) {
+                    LimpiarCamposVenta((JPanel) component, 1);
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonLimpiarVentaActionPerformed
 
     private void jRadioPagadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioPagadoActionPerformed
@@ -1512,45 +1551,45 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioPagadoActionPerformed
 
     private void jRadioFiltroIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroIDActionPerformed
-       if(jRadioFiltroID.isSelected()){
-           ocultarComponentes(jPanelOpcionesFiltros);
-           jFieldDatos.setVisible(true);
-       }else{
-           ocultarComponentes(jPanelOpcionesFiltros);
-       }
+        if (jRadioFiltroID.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            jFieldDatos.setVisible(true);
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
     }//GEN-LAST:event_jRadioFiltroIDActionPerformed
 
     private void jRadioFiltroPosicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroPosicionActionPerformed
-       if(jRadioFiltroPosicion.isSelected()){
-           ocultarComponentes(jPanelOpcionesFiltros);
-           jRadioPrimero.setVisible(true);
-           jRadioUltimo.setVisible(true);
-       }else{
-           ocultarComponentes(jPanelOpcionesFiltros);
-       }
+        if (jRadioFiltroPosicion.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            jRadioPrimero.setVisible(true);
+            jRadioUltimo.setVisible(true);
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
     }//GEN-LAST:event_jRadioFiltroPosicionActionPerformed
 
     private void jRadioFiltroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroEstadoActionPerformed
-        if(jRadioFiltroEstado.isSelected()){
-           ocultarComponentes(jPanelOpcionesFiltros);
-           jRadioDefault.setVisible(true);
-           jRadioPagado.setVisible(true);
-           jRadioCancelado.setVisible(true);
-       }else{
-           ocultarComponentes(jPanelOpcionesFiltros);
-       }      
+        if (jRadioFiltroEstado.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            jRadioDefault.setVisible(true);
+            jRadioPagado.setVisible(true);
+            jRadioCancelado.setVisible(true);
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
     }//GEN-LAST:event_jRadioFiltroEstadoActionPerformed
 
     private void jRadioFiltroCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroCategoriaActionPerformed
-        if(jRadioFiltroCategoria.isSelected()){
-           ocultarComponentes(jPanelOpcionesFiltros);
-           System.out.println("HOla");
-           jRadioFiltroUnico.setVisible(true);
-           jRadioFiltroMultiple.setVisible(true);
-           System.out.println("adios");
-       }else{
-           ocultarComponentes(jPanelOpcionesFiltros);
-       }
+        if (jRadioFiltroCategoria.isSelected()) {
+            ocultarComponentes(jPanelOpcionesFiltros);
+            System.out.println("HOla");
+            jRadioFiltroUnico.setVisible(true);
+            jRadioFiltroMultiple.setVisible(true);
+            System.out.println("adios");
+        } else {
+            ocultarComponentes(jPanelOpcionesFiltros);
+        }
     }//GEN-LAST:event_jRadioFiltroCategoriaActionPerformed
 
     private void jRadioFiltroTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioFiltroTodosActionPerformed
@@ -1559,67 +1598,122 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
     @SuppressWarnings("UnusedAssignment")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        if(jRadioFiltroTodos.isSelected()){
+        // CONSULTAR TODAS
+        if (jRadioFiltroTodos.isSelected()) {
+
             jAreaConsultas.setText(consultarTodasVentas(datos));
-        }else{
-            if(jRadioFiltroID.isSelected()){
-                try{
-                    int codigo = Integer.valueOf(jFieldDatos.getText());
-                    jAreaConsultas.setText(consultarVentaDadoNumero(datos, codigo));
-                }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo del Numero de Venta", 
-                            "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
-                }
-                
-            }else{
-                if(jRadioFiltroEstado.isSelected()){
-                    if(jRadioDefault.isSelected()){
-                        jAreaConsultas.setText(consultarVentasDadoEstado(datos, 'A'));
-                        
-                    }
-                    else{
-                        if(jRadioPagado.isSelected()){
-                            jAreaConsultas.setText(consultarVentasDadoEstado(datos, 'P'));
-                        }
-                        else{
-                                if(jRadioCancelado.isSelected()){
-                                    jAreaConsultas.setText(consultarVentasDadoEstado(datos, 'C'));
-                                }
-                                else{
-                                    JOptionPane.showMessageDialog(null, "Selecione un Estado por favor");
-                                }
-                            }
-                    }   
-                  
-                }
-                else{
-                    if(jRadioFiltroCategoria.isSelected()){
-                        if(jRadioFiltroUnico.isSelected()){
-                            jAreaConsultas.setText(consultarVentaDadaCategoriaPaquete(datos, "Unico"));
-                          
-                        }else{
-                            if(jRadioFiltroMultiple.isSelected()){
-                                jAreaConsultas.setText(consultarVentaDadaCategoriaPaquete(datos, "Multiple"));
-                            }
-                        }
-                    }else{
-                        if(jRadioFiltroPosicion.isSelected()){
-                            if(jRadioPrimero.isSelected()){
-                                jAreaConsultas.setText(consultarVentaDadaPosicion(datos, 'p'));
-                            }
-                            else{
-                                if(jRadioUltimo.isSelected()){
-                                    jAreaConsultas.setText(consultarVentaDadaPosicion(datos, 'u'));
-                                }
-                            }
-                        }
-                    }
-                }
+            return;
+        }
+
+        // CONSULTAR POR ID
+        if (jRadioFiltroID.isSelected()) {
+
+            try {
+
+                int codigo = Integer.parseInt(jFieldDatos.getText());
+
+                jAreaConsultas.setText(
+                        consultarVentaDadoNumero(datos, codigo)
+                );
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Digite un valor correcto en el campo del Numero de Venta",
+                        "Error Al digitar datos",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+            return;
+        }
+
+        // CONSULTAR POR ESTADO
+        if (jRadioFiltroEstado.isSelected()) {
+
+            if (jRadioDefault.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentasDadoEstado(datos, 'A')
+                );
+
+            } else if (jRadioPagado.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentasDadoEstado(datos, 'P')
+                );
+
+            } else if (jRadioCancelado.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentasDadoEstado(datos, 'C')
+                );
+
+            } else {
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Seleccione un estado por favor"
+                );
+            }
+
+            return;
+        }
+
+        // CONSULTAR POR CATEGORÍA
+        if (jRadioFiltroCategoria.isSelected()) {
+
+            if (jRadioFiltroUnico.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaCategoriaPaquete(datos, "Unico")
+                );
+
+            } else if (jRadioFiltroMultiple.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaCategoriaPaquete(datos, "Multiple")
+                );
+            }
+
+            return;
+        }
+
+        // CONSULTAR POR POSICIÓN
+        if (jRadioFiltroPosicion.isSelected()) {
+
+            if (jRadioPrimero.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaPosicion(datos, 'p')
+                );
+                return;
+
+            } else if (jRadioUltimo.isSelected()) {
+
+                jAreaConsultas.setText(
+                        consultarVentaDadaPosicion(datos, 'u')
+                );
+                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favos seleccione la posicion que desea buscar",
+                        "Error de busqueda", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
-        
+        JOptionPane.showMessageDialog(null, "Por favor seleccione un filtro",
+                "Error de busqueda", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonLimpiarDestinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarDestinosActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar todos los destinos anteriormente agregados?",
+                 "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            susDestinos.clear();
+            jAreaDestinos.setText(null);
+        }
+    }//GEN-LAST:event_jButtonLimpiarDestinosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1662,6 +1756,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.ButtonGroup filtrosEstado;
     private javax.swing.ButtonGroup filtrosPosicion;
     private javax.swing.JTextArea jAreaConsultas;
+    private javax.swing.JTextArea jAreaDestinos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1670,6 +1765,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAñadirAtractivo;
     private javax.swing.JButton jButtonAñadirDestino;
     private javax.swing.JButton jButtonLimpiarAtractivo;
+    private javax.swing.JButton jButtonLimpiarDestinos;
     private javax.swing.JButton jButtonLimpiarVenta;
     private javax.swing.JButton jButtonNuevaVenta;
     private javax.swing.JButton jButtonVerAtractivo;
@@ -1719,6 +1815,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelContacto;
@@ -1757,6 +1854,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
