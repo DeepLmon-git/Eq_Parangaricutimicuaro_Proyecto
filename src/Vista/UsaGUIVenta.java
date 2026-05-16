@@ -58,7 +58,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     }
 
     public String consultarVentaDadoNumero(ArrayList<Venta> datos, int numeroVenta) {
-        String resultado = "Ventas segun su Numero de venta: "+numeroVenta+"\n";
+        String resultado = "Ventas segun su Estado\n";
         if (datos == null) {
             resultado += "No hay datos en el sistema";
         } else {
@@ -1557,113 +1557,69 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         ocultarComponentes(jPanelOpcionesFiltros);
     }//GEN-LAST:event_jRadioFiltroTodosActionPerformed
 
+    @SuppressWarnings("UnusedAssignment")
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // CONSULTAR TODAS
-        if (jRadioFiltroTodos.isSelected()) {
-
+        
+        if(jRadioFiltroTodos.isSelected()){
             jAreaConsultas.setText(consultarTodasVentas(datos));
-            return;
-        }
-
-        // CONSULTAR POR ID
-        if (jRadioFiltroID.isSelected()) {
-
-            try {
-
-                int codigo = Integer.parseInt(jFieldDatos.getText());
-
-                jAreaConsultas.setText(
-                        consultarVentaDadoNumero(datos, codigo)
-                );
-
-            } catch (Exception e) {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Digite un valor correcto en el campo del Numero de Venta",
-                        "Error Al digitar datos",
-                        JOptionPane.ERROR_MESSAGE
-                );
-            }
-
-            return;
-        }
-
-        // CONSULTAR POR ESTADO
-        if (jRadioFiltroEstado.isSelected()) {
-
-            if (jRadioDefault.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentasDadoEstado(datos, 'A')
-                );
-
-            } else if (jRadioPagado.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentasDadoEstado(datos, 'P')
-                );
-
-            } else if (jRadioCancelado.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentasDadoEstado(datos, 'C')
-                );
-
-            } else {
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Seleccione un estado por favor"
-                );
-            }
-
-            return;
-        }
-
-        // CONSULTAR POR CATEGORÍA
-        if (jRadioFiltroCategoria.isSelected()) {
-
-            if (jRadioFiltroUnico.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentaDadaCategoriaPaquete(datos, "Unico")
-                );
-
-            } else if (jRadioFiltroMultiple.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentaDadaCategoriaPaquete(datos, "Multiple")
-                );
-            }
-
-            return;
-        }
-
-        // CONSULTAR POR POSICIÓN
-        if (jRadioFiltroPosicion.isSelected()) {
-
-            if (jRadioPrimero.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentaDadaPosicion(datos, 'p')
-                );
-
-            } else if (jRadioUltimo.isSelected()) {
-
-                jAreaConsultas.setText(
-                        consultarVentaDadaPosicion(datos, 'u')
-                );
-            }else {
-                 JOptionPane.showMessageDialog(null, "Por favor seleccione una posicion","Error posicion",
-                         JOptionPane.ERROR_MESSAGE);
-                 return;
+        }else{
+            if(jRadioFiltroID.isSelected()){
+                try{
+                    int codigo = Integer.valueOf(jFieldDatos.getText());
+                    jAreaConsultas.setText(consultarVentaDadoNumero(datos, codigo));
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "Digite un valor correcto en el campo del Numero de Venta", 
+                            "Error Al digitar datos", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }else{
+                if(jRadioFiltroEstado.isSelected()){
+                    if(jRadioDefault.isSelected()){
+                        jAreaConsultas.setText(consultarVentasDadoEstado(datos, 'A'));
+                        
+                    }
+                    else{
+                        if(jRadioPagado.isSelected()){
+                            jAreaConsultas.setText(consultarVentasDadoEstado(datos, 'P'));
+                        }
+                        else{
+                                if(jRadioCancelado.isSelected()){
+                                    jAreaConsultas.setText(consultarVentasDadoEstado(datos, 'C'));
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(null, "Selecione un Estado por favor");
+                                }
+                            }
+                    }   
+                  
+                }
+                else{
+                    if(jRadioFiltroCategoria.isSelected()){
+                        if(jRadioFiltroUnico.isSelected()){
+                            jAreaConsultas.setText(consultarVentaDadaCategoriaPaquete(datos, "Unico"));
+                          
+                        }else{
+                            if(jRadioFiltroMultiple.isSelected()){
+                                jAreaConsultas.setText(consultarVentaDadaCategoriaPaquete(datos, "Multiple"));
+                            }
+                        }
+                    }else{
+                        if(jRadioFiltroPosicion.isSelected()){
+                            if(jRadioPrimero.isSelected()){
+                                jAreaConsultas.setText(consultarVentaDadaPosicion(datos, 'p'));
+                            }
+                            else{
+                                if(jRadioUltimo.isSelected()){
+                                    jAreaConsultas.setText(consultarVentaDadaPosicion(datos, 'u'));
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-        JOptionPane.showMessageDialog(null, "Por favor seleccione un filtro","Error filtro",JOptionPane.ERROR_MESSAGE);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
-
-                                            
 
     /**
      * @param args the command line arguments
