@@ -104,14 +104,20 @@ public class Venta {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Venta{" +
-                "numero=" + numero +
-                ", fechaHoraGeneracion=" + fechaHoraGeneracion +
-                ", fechaHoraActualizacion=" + fechaHoraActualizacion +
-                ", suCliente=" + suCliente +
-                ", susPaquetesTuristicos=" + susPaquetesTuristicos +
-                ", estado=" + estado +
-                ", totalUnidades=" + calcularCantidadTotalUnidadesPaquetes() +
-                '}';
+        String listaPaquetes = "Paquetes turisticos añadidos: \n";
+        int i = 1;
+        for(PaqueteTuristico  objP :susPaquetesTuristicos){
+            listaPaquetes += "Paquete "+i+": \n"+objP.toString();
+        }
+        return """
+               Venta:
+               numero=""" + numero +
+                "\nfechaHoraGeneracion=" + fechaHoraGeneracion +
+                "\nfechaHoraActualizacion=" + fechaHoraActualizacion +               
+                "\nestado=" + estado +
+                "\nsuCliente=" + suCliente.toString() +
+                "\ntotalUnidades=" + calcularCantidadTotalUnidadesPaquetes() +
+                "\nsusPaquetesTuristicos=" + listaPaquetes 
+                ;
     }
 }

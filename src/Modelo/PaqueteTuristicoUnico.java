@@ -42,10 +42,11 @@ public final class PaqueteTuristicoUnico extends PaqueteTuristico {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "PaqueteTuristicoUnico{" +
-                "nombreHotel='" + nombreHotel + '\'' +
-                ", tipoDesayuno='" + tipoDesayuno + '\'' +
-                '}';
+        return """
+               
+               PaqueteTuristicoUnico:
+               nombreHotel='""" + nombreHotel + '\n' +
+                "tipoDesayuno='" + tipoDesayuno + '\n';
     }
     @Override
     public int calcularValorUnidad() {

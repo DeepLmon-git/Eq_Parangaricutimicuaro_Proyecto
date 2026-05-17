@@ -173,21 +173,26 @@ public abstract class PaqueteTuristico {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "PaqueteTuristico{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", tipoligiaTurismo='" + tipologiaTurismo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", origen='" + origen + '\'' +
-                ", susDestinos=" + susDestinos +
-                ", hotel=" + hotel +
-                ", alimentacion=" + alimentacion +
-                ", alimentacionTodo=" + alimentacionTodo +
-                ", vuelo=" + vuelo +
-                ", asistencia=" + asistencia +
-                ", tarifaDia=" + tarifaDia +
-                ", cantidadUnidades=" + cantidadUnidades +
-                '}';
+        String listaDestinos = "Lista de destinos: \n\n";
+        for (Destino objD : susDestinos){
+            listaDestinos+=objD.toString();
+        }
+        return """
+               PaqueteTuristico
+               codigo='""" + codigo + '\n' +
+                "nombre='" + nombre + '\n' +
+                "tipoligiaTurismo='" + tipologiaTurismo + '\n' +
+                "descripcion='" + descripcion + '\n' +
+                "origen='" + origen + '\n' +
+                
+                "\nhotel=" + hotel +
+                "\nalimentacion=" + alimentacion +
+                "\nalimentacionTodo=" + alimentacionTodo +
+                "\nvuelo=" + vuelo +
+                "\nasistencia=" + asistencia +
+                "\ntarifaDia=" + tarifaDia +
+                "\ncantidadUnidades=" + cantidadUnidades +
+                "susDestinos=" + listaDestinos +'\n';
     }
     
 }
