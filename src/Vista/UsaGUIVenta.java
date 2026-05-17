@@ -1116,7 +1116,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFormLayout.createSequentialGroup()
@@ -1136,12 +1136,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelDestinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLimpiarVenta)
                     .addComponent(jButtonAgregarVenta))
-                .addContainerGap())
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanelForm);
@@ -1157,7 +1157,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        panelCards.add(panelNuevaVenta, "card2");
+        panelCards.add(panelNuevaVenta, "cardNuevaVenta");
+
+        panelConsulta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Consultas");
@@ -1278,7 +1280,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelOpcionesFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         panelConsultaLayout.setVerticalGroup(
             panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1304,10 +1306,12 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         .addComponent(jRadioFiltroEstado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRadioFiltroCategoria)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
-        panelCards.add(panelConsulta, "card3");
+        panelCards.add(panelConsulta, "cardConsulta");
+
+        panelActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel31.setText("Actualizar Venta");
@@ -1385,7 +1389,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                                         .addComponent(jButtonPagar)
                                         .addGap(80, 80, 80)
                                         .addComponent(jButtonCancelar)))
-                                .addGap(0, 112, Short.MAX_VALUE))))))
+                                .addGap(0, 108, Short.MAX_VALUE))))))
         );
         panelActualizarLayout.setVerticalGroup(
             panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1415,23 +1419,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                 .addGroup(panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPagar)
                     .addComponent(jButtonCancelar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        panelCards.add(panelActualizar, "card4");
+        panelCards.add(panelActualizar, "cardActualizar");
+
+        panelArchivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout panelArchivoLayout = new javax.swing.GroupLayout(panelArchivo);
         panelArchivo.setLayout(panelArchivoLayout);
         panelArchivoLayout.setHorizontalGroup(
             panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
         );
         panelArchivoLayout.setVerticalGroup(
             panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
 
-        panelCards.add(panelArchivo, "card5");
+        panelCards.add(panelArchivo, "cardArchivo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1467,25 +1473,25 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private void jButtonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaVentaActionPerformed
         CardLayout cl = (CardLayout) (panelCards.getLayout());
 
-        cl.show(panelCards, "card2");
+        cl.show(panelCards, "cardNuevaVenta");
     }//GEN-LAST:event_jButtonNuevaVentaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         CardLayout cl = (CardLayout) (panelCards.getLayout());
 
-        cl.show(panelCards, "card3");
+        cl.show(panelCards, "cardConsulta");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         CardLayout cl = (CardLayout) (panelCards.getLayout());
 
-        cl.show(panelCards, "card2");
+        cl.show(panelCards, "cardActualizar");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         CardLayout cl = (CardLayout) (panelCards.getLayout());
 
-        cl.show(panelCards, "card2");
+        cl.show(panelCards, "cardArchivo");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jRadioNITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNITActionPerformed
@@ -1835,35 +1841,37 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private void jButtonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBusquedaActionPerformed
         try {
 
+            int codigo = Integer.valueOf(jFieldNumVentaEdit.getText());
             if (datos.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No hay ventas registradas aun");
             }
-            int codigo = Integer.valueOf(jFieldNumVentaEdit.getText());
             for (Venta objV : datos) {
                 if (objV.getNumero() == codigo) {
                     actualizaVenta = objV;
                 }
             }
-            int i = 0;
-            int totalPago = 0;
-            ArrayList<String> listaAtributos = new ArrayList<>();
-            listaAtributos.add(String.valueOf(actualizaVenta.getNumero()));
-            listaAtributos.add(actualizaVenta.getSuCliente().getNombre());
-            listaAtributos.add(String.valueOf(actualizaVenta.getFechaHoraActualizacion()));
-            listaAtributos.add(String.valueOf(actualizaVenta.getEstado()));
-            listaAtributos.add(actualizaVenta.getSuCliente().getTelefono());
-            listaAtributos.add(actualizaVenta.getSuCliente().getEmail());
-            for (PaqueteTuristico objP : actualizaVenta.getSusPaquetesTuristicos()) {
-                totalPago += objP.calcularValorTotal();
-            }
-            listaAtributos.add(String.valueOf(totalPago));
-            for (Component component : panelActualizar.getComponents()) {
-                if (component instanceof JLabel) {
-                    ((JLabel) component).setText(((JLabel) component).getText() + " " + listaAtributos.get(i));
-                    i++;
+            if (actualizaVenta != null) {
+                int i = 0;
+                int totalPago = 0;
+                ArrayList<String> listaAtributos = new ArrayList<>();
+                listaAtributos.add(String.valueOf(actualizaVenta.getNumero()));
+                listaAtributos.add(actualizaVenta.getSuCliente().getNombre());
+                listaAtributos.add(String.valueOf(actualizaVenta.getFechaHoraActualizacion()));
+                listaAtributos.add(String.valueOf(actualizaVenta.getEstado()));
+                listaAtributos.add(actualizaVenta.getSuCliente().getTelefono());
+                listaAtributos.add(actualizaVenta.getSuCliente().getEmail());
+                for (PaqueteTuristico objP : actualizaVenta.getSusPaquetesTuristicos()) {
+                    totalPago += objP.calcularValorTotal();
                 }
+                listaAtributos.add(String.valueOf(totalPago));
+                for (Component component : panelActualizar.getComponents()) {
+                    if (component instanceof JLabel) {
+                        ((JLabel) component).setText(((JLabel) component).getText() + " " + listaAtributos.get(i));
+                        i++;
+                    }
+                }
+                jFieldNumVentaEdit.setEnabled(false);
             }
-            jFieldNumVentaEdit.setEnabled(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Digite un valor valido para el numero de venta",
                     "Error de datos", JOptionPane.ERROR_MESSAGE);
