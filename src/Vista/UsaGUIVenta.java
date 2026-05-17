@@ -297,6 +297,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         filtrosPosicion = new javax.swing.ButtonGroup();
         filtrosEstado = new javax.swing.ButtonGroup();
         filtroCategoria = new javax.swing.ButtonGroup();
+        tipoArchivo = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -423,6 +424,18 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jButtonPagar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         panelArchivo = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        jFieldNombreArchivo = new javax.swing.JTextField();
+        jRadioCliente = new javax.swing.JRadioButton();
+        jRadioVenta = new javax.swing.JRadioButton();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jAreaArchivos = new javax.swing.JTextArea();
 
         jLabel5.setText("jLabel5");
 
@@ -1116,7 +1129,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFormLayout.createSequentialGroup()
@@ -1426,15 +1439,100 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
         panelArchivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel33.setText("Archivos");
+
+        jSeparator6.setForeground(new java.awt.Color(102, 102, 102));
+
+        jButton5.setText("Generar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Importar");
+
+        jLabel34.setText("Nombre del archivo:");
+
+        tipoArchivo.add(jRadioCliente);
+        jRadioCliente.setText("Cliente");
+
+        tipoArchivo.add(jRadioVenta);
+        jRadioVenta.setText("Venta");
+
+        jLabel35.setText("Tipo de archivo");
+
+        jLabel36.setText("Informacion Cargada:");
+
+        jAreaArchivos.setColumns(20);
+        jAreaArchivos.setRows(5);
+        jScrollPane5.setViewportView(jAreaArchivos);
+
         javax.swing.GroupLayout panelArchivoLayout = new javax.swing.GroupLayout(panelArchivo);
         panelArchivo.setLayout(panelArchivoLayout);
         panelArchivoLayout.setHorizontalGroup(
             panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 411, Short.MAX_VALUE)
+            .addComponent(jSeparator6, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(panelArchivoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelArchivoLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5)
+                        .addContainerGap())
+                    .addGroup(panelArchivoLayout.createSequentialGroup()
+                        .addComponent(jLabel34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton5)
+                            .addGroup(panelArchivoLayout.createSequentialGroup()
+                                .addComponent(jFieldNombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel35)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioCliente)))
+                        .addGroup(panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelArchivoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioVenta)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelArchivoLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                                .addComponent(jButton6)
+                                .addContainerGap())))))
+            .addGroup(panelArchivoLayout.createSequentialGroup()
+                .addGroup(panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelArchivoLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel33))
+                    .addGroup(panelArchivoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel36)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelArchivoLayout.setVerticalGroup(
             panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGroup(panelArchivoLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(jFieldNombreArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioCliente)
+                    .addComponent(jRadioVenta)
+                    .addComponent(jLabel35))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelArchivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         panelCards.add(panelArchivo, "cardArchivo");
@@ -1922,6 +2020,10 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1962,12 +2064,15 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.ButtonGroup filtros;
     private javax.swing.ButtonGroup filtrosEstado;
     private javax.swing.ButtonGroup filtrosPosicion;
+    private javax.swing.JTextArea jAreaArchivos;
     private javax.swing.JTextArea jAreaConsultas;
     private javax.swing.JTextArea jAreaDestinos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButtonAgregarVenta;
     private javax.swing.JButton jButtonAñadirAtractivo;
     private javax.swing.JButton jButtonAñadirDestino;
@@ -1989,6 +2094,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JTextField jFieldDiasDestino;
     private javax.swing.JTextField jFieldEmail;
     private javax.swing.JTextField jFieldNombre;
+    private javax.swing.JTextField jFieldNombreArchivo;
     private javax.swing.JTextField jFieldNombreContacto;
     private javax.swing.JTextField jFieldNombreDestino;
     private javax.swing.JTextField jFieldNombrePaquete;
@@ -2025,6 +2131,10 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2055,6 +2165,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioBuffet;
     private javax.swing.JRadioButton jRadioCC;
     private javax.swing.JRadioButton jRadioCancelado;
+    private javax.swing.JRadioButton jRadioCliente;
     private javax.swing.JRadioButton jRadioComidaComp;
     private javax.swing.JRadioButton jRadioDefault;
     private javax.swing.JRadioButton jRadioDesayunoOnly;
@@ -2071,15 +2182,18 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioPrimero;
     private javax.swing.JRadioButton jRadioUltimo;
     private javax.swing.JRadioButton jRadioUnico;
+    private javax.swing.JRadioButton jRadioVenta;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparatorOculto;
     private javax.swing.JSpinner jSpinnerDescuento;
     private javax.swing.JTextArea jTextAreaDescripcion;
@@ -2089,5 +2203,6 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JPanel panelCards;
     private javax.swing.JPanel panelConsulta;
     private javax.swing.JPanel panelNuevaVenta;
+    private javax.swing.ButtonGroup tipoArchivo;
     // End of variables declaration//GEN-END:variables
 }
