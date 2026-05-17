@@ -9,8 +9,10 @@ import Modelo.*;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,6 +33,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private LinkedList<String> atractivos = new LinkedList<>();
     private ArrayList<Destino> susDestinos = new ArrayList<>();
     ArrayList<Venta> datos = new ArrayList<>();
+    Venta actualizaVenta;
 
     public UsaGUIVenta() {
         initComponents();
@@ -238,6 +241,9 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         return resultado;
     }
 
+    public void actualizarVenta(ArrayList<Venta> datos, int numeroVenta, char operacion) {
+    }
+
     private void LimpiarCamposVenta(JPanel panel, int boton) {
         for (Component component : panel.getComponents()) {
             if (component instanceof JTextField) {
@@ -403,6 +409,19 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         jRadioFiltroMultiple = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         panelActualizar = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jFieldNumVentaEdit = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jButtonBusqueda = new javax.swing.JButton();
+        jLabelIDVenta = new javax.swing.JLabel();
+        jLabelNombreVenta = new javax.swing.JLabel();
+        jLabelFechaVenta = new javax.swing.JLabel();
+        jLabelEstadoVenta = new javax.swing.JLabel();
+        jLabelTelefonoVenta = new javax.swing.JLabel();
+        jLabelEmailVenta = new javax.swing.JLabel();
+        jLabelPagoVenta = new javax.swing.JLabel();
+        jButtonPagar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         panelArchivo = new javax.swing.JPanel();
 
         jLabel5.setText("jLabel5");
@@ -1097,7 +1116,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanelPlanTuristico, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanelDestinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFormLayout.createSequentialGroup()
@@ -1290,15 +1309,113 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
         panelCards.add(panelConsulta, "card3");
 
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel31.setText("Actualizar Venta");
+
+        jLabel32.setText("Numero de venta");
+
+        jButtonBusqueda.setText("Buscar");
+        jButtonBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBusquedaActionPerformed(evt);
+            }
+        });
+
+        jLabelIDVenta.setText("Numero de venta: ");
+
+        jLabelNombreVenta.setText("Nombre Cliente:");
+
+        jLabelFechaVenta.setText("Fecha de actualizacion:");
+
+        jLabelEstadoVenta.setText("Estado Actual:");
+
+        jLabelTelefonoVenta.setText("telefono:");
+
+        jLabelEmailVenta.setText("Email:");
+
+        jLabelPagoVenta.setText("Total a pagar:");
+
+        jButtonPagar.setText("Pagar venta");
+        jButtonPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPagarActionPerformed(evt);
+            }
+        });
+
+        jButtonCancelar.setText("Cancelar venta");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelActualizarLayout = new javax.swing.GroupLayout(panelActualizar);
         panelActualizar.setLayout(panelActualizarLayout);
         panelActualizarLayout.setHorizontalGroup(
             panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGroup(panelActualizarLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelActualizarLayout.createSequentialGroup()
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(panelActualizarLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelActualizarLayout.createSequentialGroup()
+                                .addComponent(jLabelIDVenta)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelActualizarLayout.createSequentialGroup()
+                                .addComponent(jLabel32)
+                                .addGap(27, 27, 27)
+                                .addComponent(jFieldNumVentaEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonBusqueda)
+                                .addGap(40, 40, 40))
+                            .addGroup(panelActualizarLayout.createSequentialGroup()
+                                .addGroup(panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelNombreVenta)
+                                    .addComponent(jLabelFechaVenta)
+                                    .addComponent(jLabelEstadoVenta)
+                                    .addComponent(jLabelTelefonoVenta)
+                                    .addComponent(jLabelEmailVenta)
+                                    .addComponent(jLabelPagoVenta)
+                                    .addGroup(panelActualizarLayout.createSequentialGroup()
+                                        .addGap(107, 107, 107)
+                                        .addComponent(jButtonPagar)
+                                        .addGap(80, 80, 80)
+                                        .addComponent(jButtonCancelar)))
+                                .addGap(0, 112, Short.MAX_VALUE))))))
         );
         panelActualizarLayout.setVerticalGroup(
             panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
+            .addGroup(panelActualizarLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFieldNumVentaEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32)
+                    .addComponent(jButtonBusqueda))
+                .addGap(34, 34, 34)
+                .addComponent(jLabelIDVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNombreVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelFechaVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelEstadoVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTelefonoVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelEmailVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelPagoVenta)
+                .addGap(18, 18, 18)
+                .addGroup(panelActualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonPagar)
+                    .addComponent(jButtonCancelar))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         panelCards.add(panelActualizar, "card4");
@@ -1708,12 +1825,94 @@ public class UsaGUIVenta extends javax.swing.JFrame {
 
     private void jButtonLimpiarDestinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarDestinosActionPerformed
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Desea eliminar todos los destinos anteriormente agregados?",
-                 "Confirmacion", JOptionPane.YES_NO_OPTION);
+                "Confirmacion", JOptionPane.YES_NO_OPTION);
         if (confirmacion == 0) {
             susDestinos.clear();
             jAreaDestinos.setText(null);
         }
     }//GEN-LAST:event_jButtonLimpiarDestinosActionPerformed
+
+    private void jButtonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBusquedaActionPerformed
+        try {
+
+            if (datos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No hay ventas registradas aun");
+            }
+            int codigo = Integer.valueOf(jFieldNumVentaEdit.getText());
+            for (Venta objV : datos) {
+                if (objV.getNumero() == codigo) {
+                    actualizaVenta = objV;
+                }
+            }
+            int i = 0;
+            int totalPago = 0;
+            ArrayList<String> listaAtributos = new ArrayList<>();
+            listaAtributos.add(String.valueOf(actualizaVenta.getNumero()));
+            listaAtributos.add(actualizaVenta.getSuCliente().getNombre());
+            listaAtributos.add(String.valueOf(actualizaVenta.getFechaHoraActualizacion()));
+            listaAtributos.add(String.valueOf(actualizaVenta.getEstado()));
+            listaAtributos.add(actualizaVenta.getSuCliente().getTelefono());
+            listaAtributos.add(actualizaVenta.getSuCliente().getEmail());
+            for (PaqueteTuristico objP : actualizaVenta.getSusPaquetesTuristicos()) {
+                totalPago += objP.calcularValorTotal();
+            }
+            listaAtributos.add(String.valueOf(totalPago));
+            for (Component component : panelActualizar.getComponents()) {
+                if (component instanceof JLabel) {
+                    ((JLabel) component).setText(((JLabel) component).getText() + " " + listaAtributos.get(i));
+                    i++;
+                }
+            }
+            jFieldNumVentaEdit.setEnabled(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Digite un valor valido para el numero de venta",
+                    "Error de datos", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonBusquedaActionPerformed
+
+    private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "Desea confirmar el pago?",
+                "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            try {
+                int codigo = Integer.valueOf(jFieldNumVentaEdit.getText());
+                actualizarVenta(datos, codigo, 'p');
+                for (Venta objV : datos) {
+                    if (objV.getNumero() == codigo) {
+                        actualizaVenta = objV;
+                    }
+                }
+                jLabelFechaVenta.setText("Fecha de actualizacion: " + actualizaVenta.getFechaHoraActualizacion());
+                jLabelEstadoVenta.setText("Estado actual: " + actualizaVenta.getEstado());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Digite un valor valido para el numero de venta",
+                        "Error de datos", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }//GEN-LAST:event_jButtonPagarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "Desea confirmar el pago?",
+                "Confirmacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == 0) {
+            try {
+                int codigo = Integer.valueOf(jFieldNumVentaEdit.getText());
+                actualizarVenta(datos, codigo, 'C');
+                for (Venta objV : datos) {
+                    if (objV.getNumero() == codigo) {
+                        actualizaVenta = objV;
+                    }
+                }
+                jLabelFechaVenta.setText("Fecha de actualizacion: " + actualizaVenta.getFechaHoraActualizacion());
+                jLabelEstadoVenta.setText("Estado actual: " + actualizaVenta.getEstado());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Digite un valor valido para el numero de venta",
+                        "Error de datos", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1764,10 +1963,13 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAgregarVenta;
     private javax.swing.JButton jButtonAñadirAtractivo;
     private javax.swing.JButton jButtonAñadirDestino;
+    private javax.swing.JButton jButtonBusqueda;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpiarAtractivo;
     private javax.swing.JButton jButtonLimpiarDestinos;
     private javax.swing.JButton jButtonLimpiarVenta;
     private javax.swing.JButton jButtonNuevaVenta;
+    private javax.swing.JButton jButtonPagar;
     private javax.swing.JButton jButtonVerAtractivo;
     private javax.swing.JCheckBox jCheckBoxAsistencia;
     private javax.swing.JCheckBox jCheckBoxComida;
@@ -1782,6 +1984,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JTextField jFieldNombreContacto;
     private javax.swing.JTextField jFieldNombreDestino;
     private javax.swing.JTextField jFieldNombrePaquete;
+    private javax.swing.JTextField jFieldNumVentaEdit;
     private javax.swing.JTextField jFieldNumeroID;
     private javax.swing.JTextField jFieldObsequio;
     private javax.swing.JTextField jFieldOrigen;
@@ -1812,6 +2015,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1819,7 +2024,14 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelContacto;
+    private javax.swing.JLabel jLabelEmailVenta;
+    private javax.swing.JLabel jLabelEstadoVenta;
+    private javax.swing.JLabel jLabelFechaVenta;
+    private javax.swing.JLabel jLabelIDVenta;
+    private javax.swing.JLabel jLabelNombreVenta;
     private javax.swing.JLabel jLabelObsequio;
+    private javax.swing.JLabel jLabelPagoVenta;
+    private javax.swing.JLabel jLabelTelefonoVenta;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelCliente;
