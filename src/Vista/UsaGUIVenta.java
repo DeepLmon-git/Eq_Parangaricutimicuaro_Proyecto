@@ -29,6 +29,7 @@ public class UsaGUIVenta extends javax.swing.JFrame {
      */
     private LinkedList<String> atractivos = new LinkedList<>();
     private ArrayList<Destino> susDestinos= new ArrayList<>();
+    private ArrayList<Modelo.Cliente> misClientes = new ArrayList<>();
 
     public UsaGUIVenta() {
         initComponents();
@@ -143,6 +144,54 @@ public class UsaGUIVenta extends javax.swing.JFrame {
             jFieldObsequio.setVisible(false);
             jSeparatorOculto.setVisible(false);
             jPanelUnico.setVisible(false);
+        }
+    }
+    
+    public void recuperarClientesDeArchivo() {
+        String rutaArchivo = "clientes.txt"; 
+        misClientes.clear(); 
+        
+        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(rutaArchivo))) {
+            String linea;
+            
+            while ((linea = br.readLine()) != null) {
+                if (linea.trim().isEmpty()) continue; 
+                
+                
+                String[] datos = linea.split(",");
+                
+                
+                char tipoIdentificacion = datos[0].trim().charAt(0);
+                String numeroIdentificacion = datos[1].trim();
+                boolean empresa = Boolean.parseBoolean(datos[2].trim());
+                String nombre = datos[3].trim();
+                String email = datos[4].trim();
+                String telefono = datos[5].trim();
+                String nombreContacto = datos[6].trim();
+                double porcentajeDescuento = Double.parseDouble(datos[7].trim());
+                
+                
+                Modelo.Cliente nuevoCliente = new Modelo.Cliente(
+                    tipoIdentificacion, numeroIdentificacion, empresa, nombre, 
+                    email, telefono, nombreContacto, porcentajeDescuento
+                );
+                
+                
+                misClientes.add(nuevoCliente);
+            }
+            
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "¡Archivo leído! Se cargaron " + misClientes.size() + " clientes.", 
+                "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
+        } catch (java.io.FileNotFoundException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "No se encontró el archivo 'clientes.txt'. Asegúrate de crearlo en la carpeta raíz.", 
+                "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Error al procesar el archivo: " + e.getMessage(), 
+                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1072,6 +1121,8 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) (panelCards.getLayout());
 
         cl.show(panelCards, "card2");
+        
+        recuperarClientesDeArchivo();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jRadioNITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNITActionPerformed
