@@ -23,6 +23,9 @@ public class Destino {
         this.atractivosIncluidos = atractivosIncluidos;
     }
 
+    Destino() {
+    }
+
     public String getNombreLugar() {
         return nombreLugar;
     }
