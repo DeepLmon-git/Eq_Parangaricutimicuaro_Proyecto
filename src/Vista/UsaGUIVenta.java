@@ -147,51 +147,30 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         }
     }
     
-    public void recuperarClientesDeArchivo() {
-        String rutaArchivo = "clientes.txt"; 
-        misClientes.clear(); 
+    public void leerArchivoObjetos(ArrayList<Modelo.Cliente> datos, String nameFileUser) {
+        String nombreArchivo = nameFileUser + ".obj";        
+        java.io.ObjectInputStream entrada = null;   
+        ArrayList<Modelo.Cliente> datosLeidos; 
         
-        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(rutaArchivo))) {
-            String linea;
+        try {
+            entrada = new java.io.ObjectInputStream(new java.io.FileInputStream(nombreArchivo));
+            datosLeidos = (ArrayList<Modelo.Cliente>) entrada.readObject(); 
+            datos.clear(); 
+            datos.addAll(datosLeidos); 
+            JOptionPane.showMessageDialog(this, "¡Archivo '" + nombreArchivo + "' cargado exitosamente!\nClientes recuperados: " + datos.size(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
             
-            while ((linea = br.readLine()) != null) {
-                if (linea.trim().isEmpty()) continue; 
-                
-                
-                String[] datos = linea.split(",");
-                
-                
-                char tipoIdentificacion = datos[0].trim().charAt(0);
-                String numeroIdentificacion = datos[1].trim();
-                boolean empresa = Boolean.parseBoolean(datos[2].trim());
-                String nombre = datos[3].trim();
-                String email = datos[4].trim();
-                String telefono = datos[5].trim();
-                String nombreContacto = datos[6].trim();
-                double porcentajeDescuento = Double.parseDouble(datos[7].trim());
-                
-                
-                Modelo.Cliente nuevoCliente = new Modelo.Cliente(
-                    tipoIdentificacion, numeroIdentificacion, empresa, nombre, 
-                    email, telefono, nombreContacto, porcentajeDescuento
-                );
-                
-                
-                misClientes.add(nuevoCliente);
+        } catch (java.io.IOException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar recuperar los datos. \n" + e.toString(), 
+                                          "ERROR LEYENDO ARCHIVO", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (entrada != null) { 
+                try {
+                    entrada.close(); 
+                } catch (java.io.IOException e) {
+                    JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar cerrar el archivo.\n" + e.toString(), 
+                                                  "ERROR CERRANDO ARCHIVO", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "¡Archivo leído! Se cargaron " + misClientes.size() + " clientes.", 
-                "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            
-        } catch (java.io.FileNotFoundException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "No se encontró el archivo 'clientes.txt'. Asegúrate de crearlo en la carpeta raíz.", 
-                "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "Error al procesar el archivo: " + e.getMessage(), 
-                "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1121,8 +1100,6 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) (panelCards.getLayout());
 
         cl.show(panelCards, "card2");
-        
-        recuperarClientesDeArchivo();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jRadioNITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioNITActionPerformed
