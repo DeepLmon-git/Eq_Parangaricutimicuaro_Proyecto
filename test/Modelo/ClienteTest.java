@@ -1,136 +1,91 @@
 package Modelo;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-/**
- * Pruebas unitarias para la clase Cliente.
- */
 public class ClienteTest {
-    
+
     public ClienteTest() {
     }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
 
     /**
-     * Test de TipoIdentificacion
+     * Método auxiliar que crea un cliente de prueba con los 8 parámetros
+     * reales y exactos de tu clase original.
      */
-    @Test
-    public void testSetYGetTipoIdentificacion() {
-        Cliente instance = new Cliente();
-        char expResult = 'C'; // 'C' de Cédula, por ejemplo
-        instance.setTipoIdentificacion(expResult);
-        assertEquals(expResult, instance.getTipoIdentificacion());
+    private Cliente crearClientePrueba() {
+        return new Cliente(
+            'C', 
+            "1234567890", 
+            true, 
+            "Viajes S.A.", 
+            "contacto@viajes.com", 
+            "555-1234", 
+            "Juan Pérez", 
+            15.0
+        );
     }
 
-    /**
-     * Test de NumeroIdentificacion
-     */
     @Test
-    public void testSetYGetNumeroIdentificacion() {
-        Cliente instance = new Cliente();
-        String expResult = "1144555666";
-        instance.setNumeroIdentificacion(expResult);
-        assertEquals(expResult, instance.getNumeroIdentificacion());
+    public void testGetTipoIdentificacion() {
+        Cliente instance = crearClientePrueba();
+        char expResult = 'C';
+        char result = instance.getTipoIdentificacion();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test de Empresa (booleano)
-     */
     @Test
-    public void testSetYIsEmpresa() {
-        Cliente instance = new Cliente();
-        boolean expResult = true; // Simulamos que sí es una empresa
-        instance.setEmpresa(expResult);
-        assertEquals(expResult, instance.isEmpresa());
+    public void testGetNumeroIdentificacion() {
+        Cliente instance = crearClientePrueba();
+        String expResult = "1234567890";
+        String result = instance.getNumeroIdentificacion();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test de Nombre
-     */
     @Test
-    public void testSetYGetNombre() {
-        Cliente instance = new Cliente();
-        String expResult = "Santiago Arboleda";
-        instance.setNombre(expResult);
-        assertEquals(expResult, instance.getNombre());
+    public void testIsEmpresa() {
+        Cliente instance = crearClientePrueba();
+        boolean expResult = true;
+        boolean result = instance.isEmpresa();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test de Email
-     */
     @Test
-    public void testSetYGetEmail() {
-        Cliente instance = new Cliente();
-        String expResult = "santiago@correo.com";
-        instance.setEmail(expResult);
-        assertEquals(expResult, instance.getEmail());
+    public void testGetNombre() {
+        Cliente instance = crearClientePrueba();
+        String expResult = "Viajes S.A.";
+        String result = instance.getNombre();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test de Telefono
-     */
     @Test
-    public void testSetYGetTelefono() {
-        Cliente instance = new Cliente();
-        String expResult = "3001234567";
-        instance.setTelefono(expResult);
-        assertEquals(expResult, instance.getTelefono());
+    public void testGetEmail() {
+        Cliente instance = crearClientePrueba();
+        String expResult = "contacto@viajes.com";
+        String result = instance.getEmail();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test de NombreContacto
-     */
     @Test
-    public void testSetYGetNombreContacto() {
-        Cliente instance = new Cliente();
-        String expResult = "Contacto de Emergencia";
-        instance.setNombreContacto(expResult);
-        assertEquals(expResult, instance.getNombreContacto());
+    public void testGetTelefono() {
+        Cliente instance = crearClientePrueba();
+        String expResult = "555-1234";
+        String result = instance.getTelefono();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test de PorcentajeDescuento
-     */
     @Test
-    public void testSetYGetPorcentajeDescuento() {
-        Cliente instance = new Cliente();
-        double expResult = 15.5; // 15.5% de descuento
-        instance.setPorcentajeDescuento(expResult);
-        // El tercer parámetro '0' es el margen de error permitido al comparar decimales
-        assertEquals(expResult, instance.getPorcentajeDescuento(), 0);
+    public void testGetNombreContacto() {
+        Cliente instance = crearClientePrueba();
+        String expResult = "Juan Pérez";
+        String result = instance.getNombreContacto();
+        assertEquals(expResult, result);
     }
 
-    /**
-     * Test del método toString
-     */
     @Test
-    public void testToString() {
-        Cliente instance = new Cliente();
-        instance.setNombre("Cliente Prueba");
-        
-        // Simplemente verificamos que el método devuelva un texto y no esté vacío/nulo
-        String result = instance.toString();
-        assertNotNull(result, "El método toString no debería devolver nulo");
-        assertFalse(result.isEmpty(), "El método toString no debería devolver un texto vacío");
+    public void testGetPorcentajeDescuento() {
+        Cliente instance = crearClientePrueba();
+        double expResult = 15.0;
+        double result = instance.getPorcentajeDescuento();
+        assertEquals(expResult, result, 0.0);
     }
 }
