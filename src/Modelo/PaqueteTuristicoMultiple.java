@@ -6,10 +6,6 @@ package Modelo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author admin
- */
 public final class PaqueteTuristicoMultiple extends PaqueteTuristico {
     private String obsequio;
 
@@ -20,20 +16,40 @@ public final class PaqueteTuristicoMultiple extends PaqueteTuristico {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "PaqueteTuristicoMultiple{" +
+        return super.toString() + " PaqueteTuristicoMultiple{" +
                 "obsequio='" + obsequio + '\'' +
                 '}';
     }
+
     @Override
     public int calcularValorUnidad() {
-        return 0;
+        int totalDias = 0;
+       
+        if (this.susDestinos != null) {
+            for (Destino destino : this.susDestinos) {
+                totalDias += destino.getDiasPermanencia();
+            }
+        }
+    
+        return this.tarifaDia * totalDias;
     }
+
     public Destino obtenerDestinoInicial() {
+        
+        if (this.susDestinos != null && !this.susDestinos.isEmpty()) {
+           
+            return this.susDestinos.get(0);
+        }
         return null;
     }
+
     public Destino obtenerDestinoFinal() {
+        
+        if (this.susDestinos != null && !this.susDestinos.isEmpty()) {
+            // El destino final está en la última posición (tamaño de la lista - 1)
+            return this.susDestinos.get(this.susDestinos.size() - 1);
+        }
         return null;
     }
 
 }
-

@@ -7,10 +7,7 @@ package Modelo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-/**
- *
- * @author admin
- */
+
 public class Venta {
     private int numero;
     private LocalDateTime fechaHoraGeneracion;
@@ -18,7 +15,6 @@ public class Venta {
     private Cliente suCliente;
     private ArrayList<PaqueteTuristico> susPaquetesTuristicos;
     private char estado;
-
 
     public Venta(int numero, LocalDateTime fechaHoraGeneracion, LocalDateTime fechaHoraActualizacion, Cliente suCliente, ArrayList<PaqueteTuristico> susPaquetesTuristicos, char estado) {
         this.numero = numero;
@@ -77,6 +73,35 @@ public class Venta {
         this.estado = estado;
     }
 
+    /**
+     * Calcula la cantidad total de unidades sumando las unidades 
+     * de todos los paquetes turísticos incluidos en la venta.
+     */
+    public int calcularCantidadTotalUnidadesPaquetes() {
+        int totalUnidades = 0;
+        if (this.susPaquetesTuristicos != null) {
+            for (PaqueteTuristico paquete : this.susPaquetesTuristicos) {
+                totalUnidades += paquete.getCantidadUnidades();
+            }
+        }
+        return totalUnidades;
+    }
+    
+    public int calcularValorTotalPaquetes() {
+        // Pendiente de implementar lógica
+        return 0;
+    }
+    
+    public int calcularValorDescuento() {
+        // Pendiente de implementar lógica
+        return 0;
+    }
+    
+    public int calcularValorTotalPagar() {
+        // Pendiente de implementar lógica
+        return 0;
+    }
+
     @java.lang.Override
     public java.lang.String toString() {
         return "Venta{" +
@@ -86,25 +111,7 @@ public class Venta {
                 ", suCliente=" + suCliente +
                 ", susPaquetesTuristicos=" + susPaquetesTuristicos +
                 ", estado=" + estado +
+                ", totalUnidades=" + calcularCantidadTotalUnidadesPaquetes() +
                 '}';
     }
-
-    public int calcularCantidadTotalUnidadesPaquetes() {
-        return 0;
-    }
-    
-    public int calcularValorTotalPaquetes() {
-        return 0;
-    }
-    
-    public int calcularValorDescuento() {
-        return 0;
-    }
-    
-    public int calcularValorTotalPagar() {
-        return 0;
-    }
-
-    
-
 }
