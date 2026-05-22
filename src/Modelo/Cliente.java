@@ -96,16 +96,17 @@ public class Cliente {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Cliente{" +
-                "tipoIdentificacion=" + tipoIdentificacion +
-                ", numeroIdentificacion='" + numeroIdentificacion + '\'' +
-                ", empresa=" + empresa +
-                ", nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", nombreContacto='" + nombreContacto + '\'' +
-                ", porcentajeDescuento=" + porcentajeDescuento +
-                '}';
+        return """
+               Cliente: 
+               tipoIdentificacion=""" + tipoIdentificacion +
+                "\nnumeroIdentificacion=" + numeroIdentificacion + '\n' +
+                "empresa=" + empresa +
+                "\nnombre='" + nombre + '\n' +
+                "email='" + email + '\n' +
+                "telefono='" + telefono + '\n' +
+                "nombreContacto='" + nombreContacto + '\n' +
+                "porcentajeDescuento=" + porcentajeDescuento +
+                '\n';
     }
 }
 

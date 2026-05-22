@@ -57,12 +57,13 @@ public class Destino {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Destino{" +
-                "nombreLugar='" + nombreLugar + '\'' +
-                ", diasPermanencia=" + diasPermanencia +
-                ", atractivos=" + atractivos +
-                ", atractivosIncluidos=" + atractivosIncluidos +
-                '}';
+        return """
+               Destino 
+               nombreLugar='""" + nombreLugar + '\n' +
+                "diasPermanencia=" + diasPermanencia +
+                "\natractivos=" + atractivos +
+                "\natractivosIncluidos=" + atractivosIncluidos +
+                '\n';
     }
 }
 
