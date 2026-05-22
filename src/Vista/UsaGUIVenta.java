@@ -4,6 +4,11 @@
  */
 package Vista;
 
+import Modelo.Venta;
+import Modelo.Cliente;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import Modelo.*;
 
 import java.awt.CardLayout;
@@ -46,7 +51,37 @@ public class UsaGUIVenta extends javax.swing.JFrame {
         ocultarComponentes(jPanelOpcionesFiltros);
 
     }
+/**
+     * Genera un archivo de texto con la información de los clientes (Persistencia).
+     * Corresponde a la tarea S2-T3.
+     * @param listaClientes El ArrayList que contiene los clientes registrados.
+     */
+    public void generarArchivoClientes(ArrayList<Cliente> listaClientes) {
+        String nombreArchivo = "clientes.txt";
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+            
+            writer.write("--- REGISTRO DE CLIENTES ---");
+            writer.newLine(); 
+
+            for (Cliente cliente : listaClientes) {
+                // Formato: Tipo ID, Numero ID, Nombre, Email, Telefono
+                String linea = cliente.getTipoIdentificacion() + "," + 
+                               cliente.getNumeroIdentificacion() + "," + 
+                               cliente.getNombre() + "," + 
+                               cliente.getEmail() + "," + 
+                               cliente.getTelefono();
+                
+                writer.write(linea);
+                writer.newLine(); 
+            }
+
+            System.out.println("Archivo de clientes generado exitosamente en: " + nombreArchivo);
+
+        } catch (IOException e) {
+            System.err.println("Ocurrió un error al generar el archivo de clientes: " + e.getMessage());
+        }
+    }
     public String consultarTodasVentas(ArrayList<Venta> datos) {
         String resultado = "Todas las Ventas\n";
         if (datos.isEmpty()) {
