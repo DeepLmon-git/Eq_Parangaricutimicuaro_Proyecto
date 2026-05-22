@@ -16,9 +16,8 @@ public final class PaqueteTuristicoMultiple extends PaqueteTuristico {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return super.toString() + " PaqueteTuristicoMultiple{" +
-                "obsequio='" + obsequio + '\'' +
-                '}';
+        return super.toString() + "\nPaqueteTuristicoMultiple:" +
+                "\nobsequio='" + obsequio + '\n';
     }
 
     @Override
