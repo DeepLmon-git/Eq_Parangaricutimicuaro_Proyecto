@@ -25,6 +25,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.io.*;
 
 /**
  *
@@ -279,6 +280,21 @@ public class UsaGUIVenta extends javax.swing.JFrame {
     public void actualizarVenta(ArrayList<Venta> datos, int numeroVenta, char operacion) {
     }
 
+    
+    public void recuperarVentasDesdeArchivoObjetos() {
+    try {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("ventas.dat"));
+        datos.clear();
+        datos = (ArrayList<Venta>) ois.readObject();
+        ois.close();
+        JOptionPane.showMessageDialog(this, "Ventas recuperadas: " + datos.size());
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }
+}
+    
+    
+    
     private void LimpiarCamposVenta(JPanel panel, int boton) {
         for (Component component : panel.getComponents()) {
             if (component instanceof JTextField) {
